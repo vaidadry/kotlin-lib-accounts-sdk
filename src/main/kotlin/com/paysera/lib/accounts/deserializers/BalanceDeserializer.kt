@@ -16,8 +16,13 @@ class BalanceDeserializer : JsonDeserializer<List<Balance>> {
             val jsonObject = it.asJsonObject
             val currency = CurrencyUnit.of(jsonObject.get("currency").asString)
             val atDisposalAmount = jsonObject.get("at_disposal").asJsonObject.get("amount").asBigDecimal
-            val reservedAmount =  jsonObject.get("reserved").asJsonObject.get("amount").asBigDecimal
-            balances.add(Balance(atDisposal = Money.of(currency, atDisposalAmount), reserved = Money.of(currency, reservedAmount)))
+            val reservedAmount = jsonObject.get("reserved").asJsonObject.get("amount").asBigDecimal
+            balances.add(
+                Balance(
+                    atDisposal = Money.of(currency, atDisposalAmount),
+                    reserved = Money.of(currency, reservedAmount)
+                )
+            )
         }
         return balances
     }
