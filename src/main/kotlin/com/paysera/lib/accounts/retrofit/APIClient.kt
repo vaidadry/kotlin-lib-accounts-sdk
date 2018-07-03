@@ -18,8 +18,8 @@ interface APIClient {
     fun getCards(
         @Query("account_numbers[]") accountNumbers: List<String>,
         @Query("statuses[]") statuses: List<String>,
-        @Query("account_owner_id") accountOwnerId: String,
-        @Query("card_owner_id") cardOwnerId: String
+        @Query("account_owner_id") accountOwnerId: String?,
+        @Query("card_owner_id") cardOwnerId: String?
     ): Observable<List<Card>>
 
     @POST("payment-card/v1/cards")
