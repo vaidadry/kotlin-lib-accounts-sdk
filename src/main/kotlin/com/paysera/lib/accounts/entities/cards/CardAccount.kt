@@ -1,6 +1,6 @@
 package com.paysera.lib.accounts.entities.cards
 
-class Account(
+class CardAccount(
     val number: String,
     val clientId: Int,
     val ownerId: Int,
@@ -9,5 +9,5 @@ class Account(
     val closed: Boolean,
     val type: String,
     val ibanList: List<String>,
-    val client: Client
+    val client: CardClient
 )

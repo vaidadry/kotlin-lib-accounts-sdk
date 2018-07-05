@@ -2,8 +2,11 @@ package com.paysera.lib.accounts.clients
 
 import com.paysera.lib.accounts.entities.Balance
 import com.paysera.lib.accounts.entities.IbanInformation
+import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.cards.Card
 import com.paysera.lib.accounts.entities.cards.CardsFilter
+import com.paysera.lib.accounts.entities.cards.CardCvv2
+import com.paysera.lib.accounts.entities.cards.CardPin
 import com.paysera.lib.accounts.interfaces.TokenRefresherInterface
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
@@ -53,5 +56,25 @@ class AccountsApiClient(
 
     fun activateCard(cardId: String): Observable<Card> {
         return apiClient.activateCard(cardId).retryWhen(retryCondition)
+    }
+
+    fun deactivateCard(cardId: String): Observable<Card> {
+        return apiClient.deactivateCard(cardId).retryWhen(retryCondition)
+    }
+
+    fun cancelCard(cardId: String): Observable<Card> {
+        return apiClient.cancelCard(cardId).retryWhen(retryCondition)
+    }
+
+    fun getCardLimit(accountNumber: String): Observable<CardLimit> {
+        return apiClient.getCardLimit(accountNumber).retryWhen(retryCondition)
+    }
+
+    fun setCardLimit(accountNumber: String, cardLimit: CardLimit): Observable<CardLimit> {
+        return apiClient.setCardLimit(accountNumber, cardLimit).retryWhen(retryCondition)
+    }
+
+    fun getCardPin(cardId: String, cardCvv2: CardCvv2): Observable<CardPin> {
+        return apiClient.getCardPin(cardId, cardCvv2).retryWhen(retryCondition)
     }
 }

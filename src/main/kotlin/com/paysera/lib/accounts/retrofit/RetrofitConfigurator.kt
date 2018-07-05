@@ -1,18 +1,18 @@
 package com.paysera.lib.accounts.retrofit
 
 import com.google.gson.GsonBuilder
-import com.paysera.lib.accounts.deserializers.BalanceDeserializer
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import com.google.gson.reflect.TypeToken
-import com.paysera.lib.accounts.deserializers.CardsDeserializer
-import com.paysera.lib.accounts.deserializers.MoneyDeserializer
+import com.paysera.lib.accounts.serializers.*
 import com.paysera.lib.accounts.entities.AccountsApiCredentials
 import com.paysera.lib.accounts.entities.Balance
+import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.cards.Card
+import com.paysera.lib.accounts.entities.cards.CardPin
 import io.reactivex.schedulers.Schedulers
 import org.joda.money.Money
 
@@ -45,6 +45,8 @@ class RetrofitConfigurator(private val accountsApiCredentials: AccountsApiCreden
         gsonBuilder.registerTypeAdapter(balancesType, BalanceDeserializer())
         gsonBuilder.registerTypeAdapter(cardsType, CardsDeserializer())
         gsonBuilder.registerTypeAdapter(Money::class.java, MoneyDeserializer())
+        gsonBuilder.registerTypeAdapter(CardPin::class.java, CardPinDeserializer())
+        gsonBuilder.registerTypeAdapter(CardLimit::class.java, CardLimitSerializer())
         return GsonConverterFactory.create(gsonBuilder.create())
     }
 }

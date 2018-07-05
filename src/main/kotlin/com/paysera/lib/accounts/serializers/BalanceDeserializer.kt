@@ -1,4 +1,4 @@
-package com.paysera.lib.accounts.deserializers
+package com.paysera.lib.accounts.serializers
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
