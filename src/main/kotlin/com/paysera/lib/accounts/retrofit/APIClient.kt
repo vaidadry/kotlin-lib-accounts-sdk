@@ -12,7 +12,11 @@ import retrofit2.http.*
 interface APIClient {
 
     @GET("account/rest/v1/accounts/{accountNumber}/full-balance")
-    fun getFullBalances(@Path("accountNumber") accountNumber: String): Observable<List<Balance>>
+    fun getFullBalances(
+        @Path("accountNumber") accountNumber: String,
+        @Query("show_historical_currencies") showHistoricalCurrencies: Int
+    ): Observable<List<Balance>>
+
 
     @GET("transfer/rest/v1/swift/{iban}")
     fun getIbanInformation(@Path("iban") iban: String): Observable<IbanInformation>

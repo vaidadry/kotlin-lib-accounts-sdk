@@ -40,8 +40,8 @@ class AccountsApiClient(
         return apiClient.getIbanInformation(iban).retryWhen(retryCondition)
     }
 
-    fun getFullBalance(accountNumber: String): Observable<List<Balance>> {
-        return apiClient.getFullBalances(accountNumber).retryWhen(retryCondition)
+    fun getFullBalance(accountNumber: String, showHistoricalCurrencies: Boolean = false): Observable<List<Balance>> {
+        return apiClient.getFullBalances(accountNumber, if (showHistoricalCurrencies) 1 else 0).retryWhen(retryCondition)
     }
 
     fun getCards(cardsFilter: CardsFilter): Observable<List<Card>> {
