@@ -1,3 +1,3 @@
 package com.paysera.lib.accounts.entities
 
-class AccountsApiCredentials(var accessToken: String)
+class AccountsApiCredentials(var accessToken: String? = null)
