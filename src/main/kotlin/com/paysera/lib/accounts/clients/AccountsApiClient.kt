@@ -62,6 +62,10 @@ class AccountsApiClient(
         return apiClient.deactivateCard(cardId).retryWhen(retryCondition)
     }
 
+    fun enableCard(cardId: String): Observable<Card> {
+        return apiClient.enableCard(cardId).retryWhen(retryCondition)
+    }
+
     fun cancelCard(cardId: String): Observable<Card> {
         return apiClient.cancelCard(cardId).retryWhen(retryCondition)
     }

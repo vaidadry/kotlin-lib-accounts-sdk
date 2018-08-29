@@ -21,7 +21,7 @@ interface APIClient {
     @GET("transfer/rest/v1/swift/{iban}")
     fun getIbanInformation(@Path("iban") iban: String): Observable<IbanInformation>
 
-    @GET("payment-card/v1/cards")
+    @GET("issued-payment-card/v1/cards")
     fun getCards(
         @Query("account_numbers[]") accountNumbers: List<String>,
         @Query("statuses[]") statuses: List<String>,
@@ -29,24 +29,27 @@ interface APIClient {
         @Query("card_owner_id") cardOwnerId: String?
     ): Observable<List<Card>>
 
-    @POST("payment-card/v1/cards")
+    @POST("issued-payment-card/v1/cards")
     fun createCard(@Body card: Card): Observable<Card>
 
-    @PUT("payment-card/v1/cards/{id}/activate")
+    @PUT("issued-payment-card/v1/cards/{id}/activate")
     fun activateCard(@Path("id") id: String): Observable<Card>
 
-    @PUT("payment-card/v1/cards/{id}/deactivate")
+    @PUT("issued-payment-card/v1/cards/{id}/deactivate")
     fun deactivateCard(@Path("id") id: String): Observable<Card>
 
-    @PUT("payment-card/v1/cards/{id}/cancel")
+    @PUT("issued-payment-card/v1/cards/{id}/enable")
+    fun enableCard(@Path("id") id: String): Observable<Card>
+
+    @PUT("issued-payment-card/v1/cards/{id}/cancel")
     fun cancelCard(@Path("id") id:String): Observable<Card>
 
-    @GET("payment-card/v1/accounts/{accountNumber}/card-limit")
+    @GET("issued-payment-card/v1/accounts/{accountNumber}/card-limit")
     fun getCardLimit(@Path("accountNumber") accountNumber: String): Observable<CardLimit>
 
-    @PUT("payment-card/v1/accounts/{accountNumber}/card-limit")
+    @PUT("issued-payment-card/v1/accounts/{accountNumber}/card-limit")
     fun setCardLimit(@Path("accountNumber") accountNumber: String, @Body cardLimit: CardLimit): Observable<CardLimit>
 
-    @PUT("payment-card/v1/cards/{id}/pin")
+    @PUT("issued-payment-card/v1/cards/{id}/pin")
     fun getCardPin(@Path("id") cardId: String, @Body cardCvv2: CardCvv2): Observable<CardPin>
 }
