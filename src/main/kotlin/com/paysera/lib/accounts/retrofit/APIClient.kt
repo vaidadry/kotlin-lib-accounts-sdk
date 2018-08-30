@@ -6,7 +6,7 @@ import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.cards.Card
 import com.paysera.lib.accounts.entities.cards.CardCvv2
 import com.paysera.lib.accounts.entities.cards.CardPin
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.*
 
 interface APIClient {
@@ -15,11 +15,11 @@ interface APIClient {
     fun getFullBalances(
         @Path("accountNumber") accountNumber: String,
         @Query("show_historical_currencies") showHistoricalCurrencies: Int
-    ): Observable<List<Balance>>
+    ): Single<List<Balance>>
 
 
     @GET("transfer/rest/v1/swift/{iban}")
-    fun getIbanInformation(@Path("iban") iban: String): Observable<IbanInformation>
+    fun getIbanInformation(@Path("iban") iban: String): Single<IbanInformation>
 
     @GET("issued-payment-card/v1/cards")
     fun getCards(
@@ -27,29 +27,29 @@ interface APIClient {
         @Query("statuses[]") statuses: List<String>,
         @Query("account_owner_id") accountOwnerId: String?,
         @Query("card_owner_id") cardOwnerId: String?
-    ): Observable<List<Card>>
+    ): Single<List<Card>>
 
     @POST("issued-payment-card/v1/cards")
-    fun createCard(@Body card: Card): Observable<Card>
+    fun createCard(@Body card: Card): Single<Card>
 
     @PUT("issued-payment-card/v1/cards/{id}/activate")
-    fun activateCard(@Path("id") id: String): Observable<Card>
+    fun activateCard(@Path("id") id: String): Single<Card>
 
     @PUT("issued-payment-card/v1/cards/{id}/deactivate")
-    fun deactivateCard(@Path("id") id: String): Observable<Card>
+    fun deactivateCard(@Path("id") id: String): Single<Card>
 
     @PUT("issued-payment-card/v1/cards/{id}/enable")
-    fun enableCard(@Path("id") id: String): Observable<Card>
+    fun enableCard(@Path("id") id: String): Single<Card>
 
     @PUT("issued-payment-card/v1/cards/{id}/cancel")
-    fun cancelCard(@Path("id") id:String): Observable<Card>
+    fun cancelCard(@Path("id") id:String): Single<Card>
 
     @GET("issued-payment-card/v1/accounts/{accountNumber}/card-limit")
-    fun getCardLimit(@Path("accountNumber") accountNumber: String): Observable<CardLimit>
+    fun getCardLimit(@Path("accountNumber") accountNumber: String): Single<CardLimit>
 
     @PUT("issued-payment-card/v1/accounts/{accountNumber}/card-limit")
-    fun setCardLimit(@Path("accountNumber") accountNumber: String, @Body cardLimit: CardLimit): Observable<CardLimit>
+    fun setCardLimit(@Path("accountNumber") accountNumber: String, @Body cardLimit: CardLimit): Single<CardLimit>
 
     @PUT("issued-payment-card/v1/cards/{id}/pin")
-    fun getCardPin(@Path("id") cardId: String, @Body cardCvv2: CardCvv2): Observable<CardPin>
+    fun getCardPin(@Path("id") cardId: String, @Body cardCvv2: CardCvv2): Single<CardPin>
 }
