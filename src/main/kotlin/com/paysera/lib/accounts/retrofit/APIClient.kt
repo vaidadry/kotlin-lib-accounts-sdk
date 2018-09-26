@@ -18,7 +18,7 @@ interface APIClient {
     ): Single<List<Balance>>
 
 
-    @GET("transfer/rest/v1/swift/{iban}")
+    @GET("transfer/rest/v1/bank-information/{iban}")
     fun getIbanInformation(@Path("iban") iban: String): Single<IbanInformation>
 
     @GET("issued-payment-card/v1/cards")
