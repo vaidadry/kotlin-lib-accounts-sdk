@@ -3,9 +3,7 @@ package com.paysera.lib.accounts.retrofit
 import com.paysera.lib.accounts.entities.Balance
 import com.paysera.lib.accounts.entities.IbanInformation
 import com.paysera.lib.accounts.entities.CardLimit
-import com.paysera.lib.accounts.entities.cards.Card
-import com.paysera.lib.accounts.entities.cards.CardCvv2
-import com.paysera.lib.accounts.entities.cards.CardPin
+import com.paysera.lib.accounts.entities.cards.*
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -50,6 +48,25 @@ interface APIClient {
     @PUT("issued-payment-card/v1/accounts/{accountNumber}/card-limit")
     fun setCardLimit(@Path("accountNumber") accountNumber: String, @Body cardLimit: CardLimit): Single<CardLimit>
 
+    @GET("issued-payment-card/v1/accounts/{accountNumber}/shipping-address")
+    fun getCardShippingAddress(@Path("accountNumber") accountNumber: String): Single<CardShippingAddress>
+
     @PUT("issued-payment-card/v1/cards/{id}/pin")
     fun getCardPin(@Path("id") cardId: String, @Body cardCvv2: CardCvv2): Single<CardPin>
+
+    @GET("issued-payment-card/v1/card-delivery-prices/{country}")
+    fun getCardDeliveryPrices(@Path("country") country: String): Single<List<CardDeliveryPrice>>
+
+    @GET("issued-payment-card/v1/card-issue-price/{country}/{clientType}/{cardOwnerId}")
+    fun getCardIssuePrice(
+        @Path("country") country: String,
+        @Path("clientType") clientType: String,
+        @Path("cardOwnerId") cardOwnerId: String
+    ): Single<CardIssuePrice>
+
+    @GET("issued-payment-card/v1/card-delivery-date")
+    fun getCardDeliveryDate(
+        @Query("country") country: String,
+        @Query("delivery_type") deliveryType: String
+    ): Single<CardDeliveryDate>
 }

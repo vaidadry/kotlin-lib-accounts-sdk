@@ -1,17 +1,13 @@
 package com.paysera.lib.accounts.clients
 
-import com.paysera.lib.accounts.entities.Balance
-import com.paysera.lib.accounts.entities.IbanInformation
 import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.cards.Card
-import com.paysera.lib.accounts.entities.cards.CardsFilter
 import com.paysera.lib.accounts.entities.cards.CardCvv2
-import com.paysera.lib.accounts.entities.cards.CardPin
+import com.paysera.lib.accounts.entities.cards.CardsFilter
 import com.paysera.lib.accounts.interfaces.TokenRefresherInterface
-import io.reactivex.schedulers.Schedulers
 import com.paysera.lib.accounts.retrofit.APIClient
 import io.reactivex.Flowable
-import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import java.util.concurrent.TimeUnit.SECONDS
 
@@ -36,50 +32,50 @@ class AccountsApiClient(
         }
     }
 
-    fun
-        getIbanInformation(iban: String): Single<IbanInformation> {
-        return apiClient.getIbanInformation(iban).retryWhen(retryCondition)
-    }
+    fun getIbanInformation(iban: String) =
+        apiClient.getIbanInformation(iban).retryWhen(retryCondition)
 
-    fun getFullBalance(accountNumber: String, showHistoricalCurrencies: Boolean = false): Single<List<Balance>> {
-        return apiClient.getFullBalances(accountNumber, if (showHistoricalCurrencies) 1 else 0).retryWhen(retryCondition)
-    }
+    fun getFullBalance(accountNumber: String, showHistoricalCurrencies: Boolean = false) =
+        apiClient.getFullBalances(accountNumber, if (showHistoricalCurrencies) 1 else 0).retryWhen(retryCondition)
 
-    fun getCards(cardsFilter: CardsFilter): Single<List<Card>> {
-        return with(cardsFilter) {
+    fun getCards(cardsFilter: CardsFilter) =
+        with(cardsFilter) {
             apiClient.getCards(accountNumbers, statuses, cardOwnerId, accountOwnerId).retryWhen(retryCondition)
         }
-    }
 
-    fun createCard(card: Card): Single<Card> {
-        return apiClient.createCard(card).retryWhen(retryCondition)
-    }
+    fun createCard(card: Card) =
+        apiClient.createCard(card).retryWhen(retryCondition)
 
-    fun activateCard(cardId: String): Single<Card> {
-        return apiClient.activateCard(cardId).retryWhen(retryCondition)
-    }
+    fun activateCard(cardId: String) =
+        apiClient.activateCard(cardId).retryWhen(retryCondition)
 
-    fun deactivateCard(cardId: String): Single<Card> {
-        return apiClient.deactivateCard(cardId).retryWhen(retryCondition)
-    }
+    fun deactivateCard(cardId: String) =
+        apiClient.deactivateCard(cardId).retryWhen(retryCondition)
 
-    fun enableCard(cardId: String): Single<Card> {
-        return apiClient.enableCard(cardId).retryWhen(retryCondition)
-    }
+    fun enableCard(cardId: String) =
+        apiClient.enableCard(cardId).retryWhen(retryCondition)
 
-    fun cancelCard(cardId: String): Single<Card> {
-        return apiClient.cancelCard(cardId).retryWhen(retryCondition)
-    }
+    fun cancelCard(cardId: String) =
+        apiClient.cancelCard(cardId).retryWhen(retryCondition)
 
-    fun getCardLimit(accountNumber: String): Single<CardLimit> {
-        return apiClient.getCardLimit(accountNumber).retryWhen(retryCondition)
-    }
+    fun getCardLimit(accountNumber: String) =
+        apiClient.getCardLimit(accountNumber).retryWhen(retryCondition)
 
-    fun setCardLimit(accountNumber: String, cardLimit: CardLimit): Single<CardLimit> {
-        return apiClient.setCardLimit(accountNumber, cardLimit).retryWhen(retryCondition)
-    }
+    fun setCardLimit(accountNumber: String, cardLimit: CardLimit) =
+        apiClient.setCardLimit(accountNumber, cardLimit).retryWhen(retryCondition)
 
-    fun getCardPin(cardId: String, cardCvv2: CardCvv2): Single<CardPin> {
-        return apiClient.getCardPin(cardId, cardCvv2).retryWhen(retryCondition)
-    }
+    fun getCardPin(cardId: String, cardCvv2: CardCvv2) =
+        apiClient.getCardPin(cardId, cardCvv2).retryWhen(retryCondition)
+
+    fun getCardShippingAddress(accountNumber: String) =
+        apiClient.getCardShippingAddress(accountNumber).retryWhen(retryCondition)
+
+    fun getCardDeliveryPrices(country: String) =
+        apiClient.getCardDeliveryPrices(country).retryWhen(retryCondition)
+
+    fun getCardIssuePrice(country: String, clientType: String, cardOwnerId: String) =
+        apiClient.getCardIssuePrice(country, clientType, cardOwnerId).retryWhen(retryCondition)
+
+    fun getCardDeliveryDate(country: String, deliveryType: String) =
+        apiClient.getCardDeliveryDate(country, deliveryType).retryWhen(retryCondition)
 }

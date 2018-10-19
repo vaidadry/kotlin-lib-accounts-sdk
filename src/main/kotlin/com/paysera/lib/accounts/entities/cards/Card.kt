@@ -9,7 +9,7 @@ class Card(
     val nameOnCard: String,
     val maskedNumber: String,
     val accountNumber: String,
-    val shippingAddress: ShippingAddress,
+    val shippingAddress: CardShippingAddress,
     val chargeInfo: ChargeInfo,
     val status: String,
     val expirationDate: String,
