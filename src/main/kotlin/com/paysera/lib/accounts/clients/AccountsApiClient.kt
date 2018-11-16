@@ -4,6 +4,7 @@ import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.cards.Card
 import com.paysera.lib.accounts.entities.cards.CardCvv2
 import com.paysera.lib.accounts.entities.cards.CardsFilter
+import com.paysera.lib.accounts.entities.cards.CreatePaymentCardRequest
 import com.paysera.lib.accounts.interfaces.TokenRefresherInterface
 import com.paysera.lib.accounts.retrofit.APIClient
 import io.reactivex.Flowable
@@ -43,7 +44,7 @@ class AccountsApiClient(
             apiClient.getCards(accountNumbers, statuses, cardOwnerId, accountOwnerId).retryWhen(retryCondition)
         }
 
-    fun createCard(card: Card) =
+    fun createCard(card: CreatePaymentCardRequest) =
         apiClient.createCard(card).retryWhen(retryCondition)
 
     fun activateCard(cardId: String) =

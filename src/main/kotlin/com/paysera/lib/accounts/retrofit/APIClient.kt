@@ -28,7 +28,7 @@ interface APIClient {
     ): Single<List<Card>>
 
     @POST("issued-payment-card/v1/cards")
-    fun createCard(@Body card: Card): Single<Card>
+    fun createCard(@Body card: CreatePaymentCardRequest): Single<Card>
 
     @PUT("issued-payment-card/v1/cards/{id}/activate")
     fun activateCard(@Path("id") id: String): Single<Card>
