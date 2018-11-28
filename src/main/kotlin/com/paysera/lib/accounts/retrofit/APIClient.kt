@@ -3,18 +3,22 @@ package com.paysera.lib.accounts.retrofit
 import com.paysera.lib.accounts.entities.Balance
 import com.paysera.lib.accounts.entities.IbanInformation
 import com.paysera.lib.accounts.entities.CardLimit
+import com.paysera.lib.accounts.entities.Questionnaire
 import com.paysera.lib.accounts.entities.cards.*
 import io.reactivex.Single
 import retrofit2.http.*
 
 interface APIClient {
+    @GET("questionnaire/rest/v1/user/{userId}/questionnaire")
+    fun getLastUserQuestionnaire(
+        @Path("userId") userId: Int
+    ): Single<Questionnaire>
 
     @GET("account/rest/v1/accounts/{accountNumber}/full-balance")
     fun getFullBalances(
         @Path("accountNumber") accountNumber: String,
         @Query("show_historical_currencies") showHistoricalCurrencies: Int
     ): Single<List<Balance>>
-
 
     @GET("transfer/rest/v1/bank-information/{iban}")
     fun getIbanInformation(@Path("iban") iban: String): Single<IbanInformation>
