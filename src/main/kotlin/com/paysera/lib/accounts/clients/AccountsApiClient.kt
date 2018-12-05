@@ -41,7 +41,7 @@ class AccountsApiClient(
 
     fun getCards(cardsFilter: CardsFilter) =
         with(cardsFilter) {
-            apiClient.getCards(accountNumbers, statuses, cardOwnerId, accountOwnerId).retryWhen(retryCondition)
+            apiClient.getCards(accountNumbers, statuses, accountOwnerId, cardOwnerId).retryWhen(retryCondition)
         }
 
     fun createCard(card: CreatePaymentCardRequest) =

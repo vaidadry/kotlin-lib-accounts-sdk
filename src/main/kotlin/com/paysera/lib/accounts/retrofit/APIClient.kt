@@ -44,7 +44,7 @@ interface APIClient {
     fun enableCard(@Path("id") id: String): Single<Card>
 
     @PUT("issued-payment-card/v1/cards/{id}/cancel")
-    fun cancelCard(@Path("id") id:String): Single<Card>
+    fun cancelCard(@Path("id") id: String): Single<Card>
 
     @GET("issued-payment-card/v1/accounts/{accountNumber}/card-limit")
     fun getCardLimit(@Path("accountNumber") accountNumber: String): Single<CardLimit>
