@@ -1,10 +1,7 @@
 package com.paysera.lib.accounts.clients
 
 import com.paysera.lib.accounts.entities.CardLimit
-import com.paysera.lib.accounts.entities.cards.Card
-import com.paysera.lib.accounts.entities.cards.CardCvv2
-import com.paysera.lib.accounts.entities.cards.CardsFilter
-import com.paysera.lib.accounts.entities.cards.CreatePaymentCardRequest
+import com.paysera.lib.accounts.entities.cards.*
 import com.paysera.lib.accounts.interfaces.TokenRefresherInterface
 import com.paysera.lib.accounts.retrofit.APIClient
 import io.reactivex.Flowable
@@ -38,6 +35,11 @@ class AccountsApiClient(
 
     fun getFullBalance(accountNumber: String, showHistoricalCurrencies: Boolean = false) =
         apiClient.getFullBalances(accountNumber, if (showHistoricalCurrencies) 1 else 0).retryWhen(retryCondition)
+
+    fun getCategorizedAccountNumbers(filter: CategorizedAccountNumbersFilter) =
+        with(filter) {
+            apiClient.getCategorizedAccountNumbers(filter.categories).retryWhen(retryCondition)
+        }
 
     fun getCards(cardsFilter: CardsFilter) =
         with(cardsFilter) {

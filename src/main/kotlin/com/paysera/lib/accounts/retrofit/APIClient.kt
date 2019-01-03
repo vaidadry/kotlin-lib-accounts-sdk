@@ -23,6 +23,11 @@ interface APIClient {
     @GET("transfer/rest/v1/bank-information/{iban}")
     fun getIbanInformation(@Path("iban") iban: String): Single<IbanInformation>
 
+    @GET("transfer/rest/v1/categorized-account-numbers")
+    fun getCategorizedAccountNumbers(
+        @Query("categories[]") categories: List<String>
+    ): Single<List<CategorizedAccountNumbers>>
+
     @GET("issued-payment-card/v1/cards")
     fun getCards(
         @Query("account_numbers[]") accountNumbers: List<String>,
