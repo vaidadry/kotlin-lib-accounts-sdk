@@ -30,6 +30,10 @@ class AccountsApiClient(
         }
     }
 
+    fun activateAccount(accountNumber: String) = apiClient.activateAccount(accountNumber).retryWhen(retryCondition)
+
+    fun deactivateAccount(accountNumber: String) = apiClient.deactivateAccount(accountNumber).retryWhen(retryCondition)
+
     fun getIbanInformation(iban: String) =
         apiClient.getIbanInformation(iban).retryWhen(retryCondition)
 

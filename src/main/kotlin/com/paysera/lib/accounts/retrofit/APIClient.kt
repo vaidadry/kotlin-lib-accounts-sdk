@@ -1,14 +1,17 @@
 package com.paysera.lib.accounts.retrofit
 
-import com.paysera.lib.accounts.entities.Balance
-import com.paysera.lib.accounts.entities.IbanInformation
-import com.paysera.lib.accounts.entities.CardLimit
-import com.paysera.lib.accounts.entities.Questionnaire
+import com.paysera.lib.accounts.entities.*
 import com.paysera.lib.accounts.entities.cards.*
 import io.reactivex.Single
 import retrofit2.http.*
 
 interface APIClient {
+    @PUT("account/rest/v1/accounts/{accountNumber}/activate")
+    fun activateAccount(@Path("accountNumber") accountNumber: String): Single<Account>
+
+    @PUT("account/rest/v1/accounts/{accountNumber}/deactivate")
+    fun deactivateAccount(@Path("accountNumber") accountNumber: String): Single<Account>
+
     @GET("questionnaire/rest/v1/user/{userId}/questionnaire")
     fun getLastUserQuestionnaire(
         @Path("userId") userId: Int
