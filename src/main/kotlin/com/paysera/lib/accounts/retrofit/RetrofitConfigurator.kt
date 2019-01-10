@@ -14,6 +14,7 @@ import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.cards.Card
 import com.paysera.lib.accounts.entities.cards.CardPin
 import com.paysera.lib.accounts.entities.cards.CategorizedAccountNumbers
+import com.paysera.lib.accounts.entities.transfers.TransferNotification
 import io.reactivex.schedulers.Schedulers
 import org.joda.money.Money
 
@@ -51,6 +52,7 @@ class RetrofitConfigurator(private val accountsApiCredentials: AccountsApiCreden
         gsonBuilder.registerTypeAdapter(Money::class.java, MoneyDeserializer())
         gsonBuilder.registerTypeAdapter(CardPin::class.java, CardPinDeserializer())
         gsonBuilder.registerTypeAdapter(CardLimit::class.java, CardLimitSerializer())
+        gsonBuilder.registerTypeAdapter(TransferNotification::class.java, TransferNotificationDeserializer())
 
         return GsonConverterFactory.create(gsonBuilder.create())
     }

@@ -88,4 +88,7 @@ class AccountsApiClient(
 
     fun getLastUserQuestionnaire(userId: Int) =
         apiClient.getLastUserQuestionnaire(userId).retryWhen(retryCondition)
+
+    fun getTransfer(id: String) =
+        apiClient.getTransfer(id).retryWhen(retryCondition)
 }

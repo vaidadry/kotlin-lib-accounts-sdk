@@ -2,6 +2,7 @@ package com.paysera.lib.accounts.retrofit
 
 import com.paysera.lib.accounts.entities.*
 import com.paysera.lib.accounts.entities.cards.*
+import com.paysera.lib.accounts.entities.transfers.Transfer
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -16,6 +17,11 @@ interface APIClient {
     fun getLastUserQuestionnaire(
         @Path("userId") userId: Int
     ): Single<Questionnaire>
+
+    @GET("transfer/rest/v1/transfers/{id}")
+    fun getTransfer(
+        @Path("id") id: String
+    ): Single<Transfer>
 
     @GET("account/rest/v1/accounts/{accountNumber}/full-balance")
     fun getFullBalances(
