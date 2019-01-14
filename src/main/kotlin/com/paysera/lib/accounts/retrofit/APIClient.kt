@@ -4,6 +4,8 @@ import com.paysera.lib.accounts.entities.*
 import com.paysera.lib.accounts.entities.cards.*
 import com.paysera.lib.accounts.entities.transfers.Transfer
 import io.reactivex.Single
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.*
 
 interface APIClient {
@@ -12,6 +14,12 @@ interface APIClient {
 
     @PUT("account/rest/v1/accounts/{accountNumber}/deactivate")
     fun deactivateAccount(@Path("accountNumber") accountNumber: String): Single<Account>
+
+    @PUT("account/rest/v1/accounts/{accountNumber}/descriptions")
+    fun setDefaultAccountDescription(
+        @Path("accountNumber") accountNumber: String,
+        @Body request: SetDefaultAccountDescriptionRequest
+    ): Single<Response<Unit>>
 
     @GET("questionnaire/rest/v1/user/{userId}/questionnaire")
     fun getLastUserQuestionnaire(

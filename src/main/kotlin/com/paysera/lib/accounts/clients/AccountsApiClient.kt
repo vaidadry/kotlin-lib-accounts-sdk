@@ -1,10 +1,12 @@
 package com.paysera.lib.accounts.clients
 
 import com.paysera.lib.accounts.entities.CardLimit
+import com.paysera.lib.accounts.entities.SetDefaultAccountDescriptionRequest
 import com.paysera.lib.accounts.entities.cards.*
 import com.paysera.lib.accounts.interfaces.TokenRefresherInterface
 import com.paysera.lib.accounts.retrofit.APIClient
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import java.util.concurrent.TimeUnit.SECONDS
@@ -29,6 +31,16 @@ class AccountsApiClient(
             }
         }
     }
+
+    fun setDefaultAccountDescription(accountNumber: String, description: String) =
+        apiClient.setDefaultAccountDescription(accountNumber, SetDefaultAccountDescriptionRequest(description)).retryWhen(retryCondition)
+            .flatMap {
+                if (it.code() == 204) {
+                    Single.just(Unit)
+                } else {
+                    Single.error(HttpException(it))
+                }
+            }
 
     fun activateAccount(accountNumber: String) = apiClient.activateAccount(accountNumber).retryWhen(retryCondition)
 
