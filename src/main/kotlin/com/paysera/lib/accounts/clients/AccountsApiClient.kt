@@ -32,6 +32,8 @@ class AccountsApiClient(
         }
     }
 
+    fun createAccount(userId: String) = apiClient.createAccount(userId).retryWhen(retryCondition)
+
     fun setDefaultAccountDescription(accountNumber: String, description: String) =
         apiClient.setDefaultAccountDescription(accountNumber, SetDefaultAccountDescriptionRequest(description)).retryWhen(retryCondition)
             .flatMap {
