@@ -97,4 +97,14 @@ interface APIClient {
         @Query("country") country: String,
         @Query("delivery_type") deliveryType: String
     ): Single<CardDeliveryDate>
+
+    @GET("client-allowance/rest/v1/client-allowances/can-order-card")
+    fun canOrderCard(
+        @Query("user_id") userId: String
+    ): Single<ClientAllowance>
+
+    @GET("client-allowance/rest/v1/client-allowances/can-fill-questionnaire")
+    fun canFillQuestionnare(
+        @Query("user_id") userId: String
+    ): Single<ClientAllowance>
 }

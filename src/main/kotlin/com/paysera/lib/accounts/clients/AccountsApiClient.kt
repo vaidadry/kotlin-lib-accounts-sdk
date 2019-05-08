@@ -2,7 +2,10 @@ package com.paysera.lib.accounts.clients
 
 import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.SetDefaultAccountDescriptionRequest
-import com.paysera.lib.accounts.entities.cards.*
+import com.paysera.lib.accounts.entities.cards.CardCvv2
+import com.paysera.lib.accounts.entities.cards.CardsFilter
+import com.paysera.lib.accounts.entities.cards.CategorizedAccountNumbersFilter
+import com.paysera.lib.accounts.entities.cards.CreatePaymentCardRequest
 import com.paysera.lib.accounts.interfaces.TokenRefresherInterface
 import com.paysera.lib.accounts.retrofit.APIClient
 import io.reactivex.Flowable
@@ -105,4 +108,10 @@ class AccountsApiClient(
 
     fun getTransfer(id: String) =
         apiClient.getTransfer(id).retryWhen(retryCondition)
+
+    fun canOrderCard(id: String) =
+        apiClient.canOrderCard(id).retryWhen(retryCondition)
+
+    fun canFillQuestionnare(id: String) =
+        apiClient.canFillQuestionnare(id).retryWhen(retryCondition)
 }
