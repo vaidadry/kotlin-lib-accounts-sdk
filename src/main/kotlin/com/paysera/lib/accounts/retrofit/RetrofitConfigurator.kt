@@ -14,7 +14,6 @@ import com.paysera.lib.accounts.entities.transfers.TransferNotification
 import com.paysera.lib.accounts.serializers.*
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.joda.money.Money
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
