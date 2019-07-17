@@ -1,8 +1,11 @@
 package com.paysera.lib.accounts.retrofit
 
 import com.paysera.lib.accounts.entities.*
+import com.paysera.lib.accounts.entities.authorizations.Authorization
+import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
 import com.paysera.lib.accounts.entities.cards.*
 import com.paysera.lib.accounts.entities.transfers.Transfer
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.*
@@ -99,12 +102,23 @@ interface APIClient {
     ): Single<CardDeliveryDate>
 
     @GET("client-allowance/rest/v1/client-allowances/can-order-card")
-    fun canOrderCard(
-        @Query("user_id") userId: String
-    ): Single<ClientAllowance>
+    fun canOrderCard(@Query("user_id") userId: String): Single<ClientAllowance>
 
     @GET("client-allowance/rest/v1/client-allowances/can-fill-questionnaire")
-    fun canFillQuestionnare(
-        @Query("user_id") userId: String
-    ): Single<ClientAllowance>
+    fun canFillQuestionnare(@Query("user_id") userId: String): Single<ClientAllowance>
+
+    @GET("permission/rest/v1/authorizations")
+    fun getAuthorizations(@Query("account_numbers[]") accountNumbers: List<String>): Single<List<Authorization>>
+
+    @POST("permission/rest/v1/authorizations")
+    fun createAuthorization(@Body authorization: CreateAuthorizationRequest): Single<List<Authorization>>
+
+    @DELETE("permission/rest/v1/authorizations/{authorizationId}")
+    fun deleteAuthorization(@Path("authorizationId") authorizationId: String): Completable
+
+    @PUT("permission/rest/v1/authorizations/{authorizationId}")
+    fun updateAuthorization(
+        @Path("authorizationId") authorizationId: String,
+        @Body authorization: CreateAuthorizationRequest
+    ): Single<List<Authorization>>
 }
