@@ -38,7 +38,6 @@ class RetrofitConfigurator(private val accountsApiCredentials: AccountsApiCreden
             val modifiedRequest = builder.build()
             chain.proceed(modifiedRequest)
         }
-        addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         build()
     }
 
