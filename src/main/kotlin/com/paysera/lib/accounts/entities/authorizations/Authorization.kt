@@ -3,7 +3,7 @@ package com.paysera.lib.accounts.entities.authorizations
 data class Authorization(
     val id: String,
     val accountNumber: String,
-    val users: List<User>,
+    val users: List<AuthorizationUser>,
     val readPermission: Boolean,
     val writePermission: Boolean,
     val signPermission: SignPermission?,

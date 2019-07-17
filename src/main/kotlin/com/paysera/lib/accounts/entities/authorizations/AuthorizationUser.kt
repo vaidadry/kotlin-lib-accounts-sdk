@@ -1,6 +1,6 @@
 package com.paysera.lib.accounts.entities.authorizations
 
-data class User(
+data class AuthorizationUser(
     val userId: Int,
     val displayName: String
 )
