@@ -123,8 +123,8 @@ class AccountsApiClient(
     fun getAuthorizations(filter: AuthorizationFilter) =
         apiClient.getAuthorizations(
             filter.accountNumbers,
-            filter.validFrom,
-            filter.validTo,
+            filter.validFrom?.time,
+            filter.validTo?.time,
             filter.limit,
             filter.offset,
             filter.orderBy,

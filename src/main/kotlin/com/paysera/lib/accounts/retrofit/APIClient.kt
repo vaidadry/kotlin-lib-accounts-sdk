@@ -9,6 +9,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.*
+import java.util.*
 
 interface APIClient {
     @POST("account/rest/v1/users/{userId}/accounts")
@@ -110,13 +111,13 @@ interface APIClient {
     @GET("permission/rest/v1/authorizations")
     fun getAuthorizations(
         @Query("account_numbers[]") accountNumbers: List<String>,
-        @Query("validFrom") validFrom: Long?,
-        @Query("validTo") validTo: Long?,
+        @Query("valid_from") validFrom: Long?,
+        @Query("valid_to") validTo: Long?,
         @Query("limit") limit: Int?,
         @Query("offset") offset: Int?,
-        @Query("orderBy") orderBy: String?,
-        @Query("orderDirection") orderDirection: String?,
-        @Query("replacedAuthorizationIds") replacedAuthorizationIds: List<String>?
+        @Query("order_by") orderBy: String?,
+        @Query("order_direction") orderDirection: String?,
+        @Query("replaced_authorization_ids") replacedAuthorizationIds: List<String>?
     ): Single<List<Authorization>>
 
     @POST("permission/rest/v1/authorizations")

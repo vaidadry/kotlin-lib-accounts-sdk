@@ -18,6 +18,7 @@ import org.joda.money.Money
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class RetrofitConfigurator(private val accountsApiCredentials: AccountsApiCredentials) {
 
@@ -56,6 +57,7 @@ class RetrofitConfigurator(private val accountsApiCredentials: AccountsApiCreden
         gsonBuilder.registerTypeAdapter(CardPin::class.java, CardPinDeserializer())
         gsonBuilder.registerTypeAdapter(CardLimit::class.java, CardLimitSerializer())
         gsonBuilder.registerTypeAdapter(TransferNotification::class.java, TransferNotificationDeserializer())
+        gsonBuilder.registerTypeAdapter(Date::class.java, DateSerializer())
 
         return GsonConverterFactory.create(gsonBuilder.create())
     }

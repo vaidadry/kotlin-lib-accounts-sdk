@@ -1,13 +1,11 @@
 package com.paysera.lib.accounts.serializers
 
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
+import com.google.gson.*
 import org.joda.money.CurrencyUnit
 import org.joda.money.Money
 import java.lang.reflect.Type
 
-class MoneyDeserializer : JsonDeserializer<Money> {
+class MoneyDeserializer : JsonDeserializer<Money>, JsonSerializer<Money> {
 
     override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): Money {
         val jsonObject = json?.asJsonObject
@@ -16,4 +14,10 @@ class MoneyDeserializer : JsonDeserializer<Money> {
         return Money.of(CurrencyUnit.of(currency), amount)
     }
 
+    override fun serialize(src: Money?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement {
+        val amountObject = JsonObject()
+        amountObject.addProperty("amount", src?.amount)
+        amountObject.addProperty("currency", src?.currencyUnit?.currencyCode)
+        return amountObject
+    }
 }
