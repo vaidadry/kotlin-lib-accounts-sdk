@@ -108,7 +108,16 @@ interface APIClient {
     fun canFillQuestionnare(@Query("user_id") userId: String): Single<ClientAllowance>
 
     @GET("permission/rest/v1/authorizations")
-    fun getAuthorizations(@Query("account_numbers[]") accountNumbers: List<String>): Single<List<Authorization>>
+    fun getAuthorizations(
+        @Query("account_numbers[]") accountNumbers: List<String>,
+        @Query("validFrom") validFrom: Long?,
+        @Query("validTo") validTo: Long?,
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?,
+        @Query("orderBy") orderBy: String?,
+        @Query("orderDirection") orderDirection: String?,
+        @Query("replacedAuthorizationIds") replacedAuthorizationIds: List<String>?
+    ): Single<List<Authorization>>
 
     @POST("permission/rest/v1/authorizations")
     fun createAuthorization(@Body authorization: CreateAuthorizationRequest): Single<List<Authorization>>

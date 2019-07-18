@@ -2,6 +2,7 @@ package com.paysera.lib.accounts.clients
 
 import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.SetDefaultAccountDescriptionRequest
+import com.paysera.lib.accounts.entities.authorizations.AuthorizationFilter
 import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
 import com.paysera.lib.accounts.entities.cards.CardCvv2
 import com.paysera.lib.accounts.entities.cards.CardsFilter
@@ -119,8 +120,17 @@ class AccountsApiClient(
     fun createAuthorization(authorization: CreateAuthorizationRequest) =
         apiClient.createAuthorization(authorization).retryWhen(retryCondition)
 
-    fun getAuthorizations(accountNumbers: List<String>) =
-        apiClient.getAuthorizations(accountNumbers).retryWhen(retryCondition)
+    fun getAuthorizations(filter: AuthorizationFilter) =
+        apiClient.getAuthorizations(
+            filter.accountNumbers,
+            filter.validFrom,
+            filter.validTo,
+            filter.limit,
+            filter.offset,
+            filter.orderBy,
+            filter.orderDirectionBy,
+            filter.replacedAuthorizationIds
+        ).retryWhen(retryCondition)
 
     fun updateAuthorization(authorizationId: String, authorization: CreateAuthorizationRequest) =
         apiClient.updateAuthorization(authorizationId, authorization).retryWhen(retryCondition)
