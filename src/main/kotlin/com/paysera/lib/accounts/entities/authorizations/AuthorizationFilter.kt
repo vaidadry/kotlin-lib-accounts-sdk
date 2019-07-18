@@ -1,9 +1,11 @@
 package com.paysera.lib.accounts.entities.authorizations
 
+import java.util.*
+
 data class AuthorizationFilter(
     val accountNumbers: List<String>,
-    var validFrom: Long? = null,
-    var validTo: Long? = null,
+    var validFrom: Date? = null,
+    var validTo: Date? = null,
     var limit: Int? = null,
     var offset: Int? = null,
     var orderBy: String? = null,
