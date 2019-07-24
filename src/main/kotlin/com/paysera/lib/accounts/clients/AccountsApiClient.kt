@@ -8,6 +8,7 @@ import com.paysera.lib.accounts.entities.cards.CardCvv2
 import com.paysera.lib.accounts.entities.cards.CardsFilter
 import com.paysera.lib.accounts.entities.cards.CategorizedAccountNumbersFilter
 import com.paysera.lib.accounts.entities.cards.CreatePaymentCardRequest
+import com.paysera.lib.accounts.entities.common.BaseFilter
 import com.paysera.lib.accounts.interfaces.TokenRefresherInterface
 import com.paysera.lib.accounts.retrofit.APIClient
 import io.reactivex.Flowable
@@ -105,8 +106,11 @@ class AccountsApiClient(
     fun getCardDeliveryDate(country: String, deliveryType: String) =
         apiClient.getCardDeliveryDate(country, deliveryType).retryWhen(retryCondition)
 
-    fun getCardDeliveryCountries() =
-        apiClient.getCardDeliveryCountries().retryWhen(retryCondition)
+    fun getCardDeliveryCountries(filter: BaseFilter) =
+        apiClient.getCardDeliveryCountries(
+            offset = filter.offset,
+            limit = filter.limit
+        ).retryWhen(retryCondition)
 
     fun getLastUserQuestionnaire(userId: Int) =
         apiClient.getLastUserQuestionnaire(userId).retryWhen(retryCondition)

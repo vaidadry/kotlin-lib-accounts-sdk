@@ -104,7 +104,10 @@ interface APIClient {
     ): Single<CardDeliveryDate>
 
     @GET("issued-payment-card/v1/card-delivery-countries")
-    fun getCardDeliveryCountries(): Single<MetadataAwareResponse<String>>
+    fun getCardDeliveryCountries(
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
+    ): Single<MetadataAwareResponse<String>>
 
     @GET("client-allowance/rest/v1/client-allowances/can-order-card")
     fun canOrderCard(@Query("user_id") userId: String): Single<ClientAllowance>
