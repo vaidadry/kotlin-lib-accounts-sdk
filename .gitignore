@@ -1,6 +1,5 @@
 .gradle
 /local.properties
-src/main/kotlin/com/paysera/lib/accounts/Test.kt
 .idea
 .DS_Store
 build
