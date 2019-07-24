@@ -4,6 +4,7 @@ import com.paysera.lib.accounts.entities.*
 import com.paysera.lib.accounts.entities.authorizations.Authorization
 import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
 import com.paysera.lib.accounts.entities.cards.*
+import com.paysera.lib.accounts.entities.common.MetadataAwareResponse
 import com.paysera.lib.accounts.entities.transfers.Transfer
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -101,6 +102,9 @@ interface APIClient {
         @Query("country") country: String,
         @Query("delivery_type") deliveryType: String
     ): Single<CardDeliveryDate>
+
+    @GET("issued-payment-card/v1/card-delivery-countries")
+    fun getCardDeliveryCountries(): Single<MetadataAwareResponse<String>>
 
     @GET("client-allowance/rest/v1/client-allowances/can-order-card")
     fun canOrderCard(@Query("user_id") userId: String): Single<ClientAllowance>

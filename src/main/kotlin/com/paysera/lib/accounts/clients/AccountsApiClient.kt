@@ -105,6 +105,9 @@ class AccountsApiClient(
     fun getCardDeliveryDate(country: String, deliveryType: String) =
         apiClient.getCardDeliveryDate(country, deliveryType).retryWhen(retryCondition)
 
+    fun getCardDeliveryCountries() =
+        apiClient.getCardDeliveryCountries().retryWhen(retryCondition)
+
     fun getLastUserQuestionnaire(userId: Int) =
         apiClient.getLastUserQuestionnaire(userId).retryWhen(retryCondition)
 
