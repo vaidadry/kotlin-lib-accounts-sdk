@@ -131,4 +131,10 @@ interface APIClient {
         @Path("authorizationId") authorizationId: String,
         @Body authorization: CreateAuthorizationRequest
     ): Single<List<Authorization>>
+
+    @DELETE("permission/rest/v1/authorizations/{authorizationId}/users/{userId}")
+    fun revokeUserAuthorization(
+        @Path("authorizationId") authorizationId: String,
+        @Path("userId") userId: String
+    ): Completable
 }

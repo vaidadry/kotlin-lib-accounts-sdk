@@ -137,4 +137,7 @@ class AccountsApiClient(
 
     fun deleteAuthorization(authorizationId: String) =
         apiClient.deleteAuthorization(authorizationId).retryWhen(retryCondition)
+
+    fun revokeUserAuthorization(authorizationId: String, userId: String) =
+        apiClient.revokeUserAuthorization(authorizationId, userId)
 }
