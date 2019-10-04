@@ -142,6 +142,6 @@ interface APIClient {
     @DELETE("permission/rest/v1/authorizations/{authorizationId}/users/{userId}")
     fun revokeUserAuthorization(
         @Path("authorizationId") authorizationId: String,
-        @Path("userId") userId: String
+        @Path("userId") userId: Int
     ): Completable
 }
