@@ -9,11 +9,11 @@ class TransferBeneficiary {
     var taxAccount: TransferBeneficiaryTaxAccount? = null
     var payseraAccount: TransferBeneficiaryPayseraAccount? = null
 
-    val isBankAccount = bankAccount != null
-    val isWebmoneyAccount = webmoneyAccount != null
-    val isPayzaAccount = payzaAccount != null
-    val isTaxAccount = taxAccount != null
-    val isPayseraAccount = payseraAccount != null
+    fun isBankAccount() = bankAccount != null
+    fun isWebmoneyAccount() = webmoneyAccount != null
+    fun isPayzaAccount() = payzaAccount != null
+    fun isTaxAccount() = taxAccount != null
+    fun isPayseraAccount() = payseraAccount != null
 }
 
 
