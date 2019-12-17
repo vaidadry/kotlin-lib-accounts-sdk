@@ -97,6 +97,9 @@ class AccountsApiClient(
     fun getCardShippingAddress(accountNumber: String) =
         apiClient.getCardShippingAddress(accountNumber).retryWhen(retryCondition)
 
+    fun getCardOrderRestriction(accountNumber: String) =
+        apiClient.getCardOrderRestriction(accountNumber).retryWhen(retryCondition)
+
     fun getCardDeliveryPrices(country: String) =
         apiClient.getCardDeliveryPrices(country).retryWhen(retryCondition)
 

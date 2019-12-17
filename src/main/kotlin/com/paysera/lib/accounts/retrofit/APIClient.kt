@@ -10,7 +10,6 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.*
-import java.util.*
 
 interface APIClient {
     @POST("account/rest/v1/users/{userId}/accounts")
@@ -83,6 +82,9 @@ interface APIClient {
 
     @GET("issued-payment-card/v1/accounts/{accountNumber}/shipping-address")
     fun getCardShippingAddress(@Path("accountNumber") accountNumber: String): Single<CardShippingAddress>
+
+    @GET("issued-payment-card/v1/accounts/{accountNumber}/card-order-restriction")
+    fun getCardOrderRestriction(@Path("accountNumber") accountNumber: String): Single<CardOrderRestriction>
 
     @PUT("issued-payment-card/v1/cards/{id}/pin")
     fun getCardPin(@Path("id") cardId: String, @Body cardCvv2: CardCvv2): Single<CardPin>
