@@ -67,8 +67,8 @@ class AccountsApiClient(
             apiClient.getCards(accountNumbers, statuses, accountOwnerId, cardOwnerId).retryWhen(retryCondition)
         }
 
-    fun getPaymentCardDesigns(aymentCardDesignFilter: PaymentCardDesignFilter) =
-        with(aymentCardDesignFilter) {
+    fun getPaymentCardDesigns(paymentCardDesignFilter: PaymentCardDesignFilter) =
+        with(paymentCardDesignFilter) {
             apiClient.getPaymentCardDesigns(accountOwnerId, clientType)
         }
 
