@@ -8,6 +8,7 @@ import com.paysera.lib.accounts.entities.common.MetadataAwareResponse
 import com.paysera.lib.accounts.entities.transfers.Transfer
 import io.reactivex.Completable
 import io.reactivex.Single
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.adapter.rxjava2.Result
 import retrofit2.http.*
@@ -64,7 +65,7 @@ interface APIClient {
     fun getPaymentCardDesigns(
         @Query("account_owner_id") accountOwnerId: Int?,
         @Query("client_type") clientType: String?
-    ) : Single<Result<PaymentCardDesign>>
+    ) : Single<ResponseBody>
 
     @POST("issued-payment-card/v1/cards")
     fun createCard(@Body card: CreatePaymentCardRequest): Single<Card>
