@@ -65,7 +65,7 @@ interface APIClient {
     fun getPaymentCardDesigns(
         @Query("account_owner_id") accountOwnerId: Int?,
         @Query("client_type") clientType: String?
-    ) : Single<ResponseBody>
+    ) : Single<MetadataAwareResponse<PaymentCardDesign>>
 
     @POST("issued-payment-card/v1/cards")
     fun createCard(@Body card: CreatePaymentCardRequest): Single<Card>
