@@ -56,7 +56,6 @@ class RetrofitConfigurator(private val accountsApiCredentials: AccountsApiCreden
         val cardsType = TypeToken.getParameterized(List::class.java, Card::class.java).type
         val categorizedAccountNumbersType = TypeToken.getParameterized(List::class.java, CategorizedAccountNumbers::class.java).type
         val authorizationsType = TypeToken.getParameterized(List::class.java, Authorization::class.java).type
-        val paymentCardDesignType = TypeToken.getParameterized(MetadataAwareResponse::class.java, PaymentCardDesign::class.java).type
 
         gsonBuilder.registerTypeAdapter(balancesType, BalanceDeserializer())
         gsonBuilder.registerTypeAdapter(cardsType, CardsDeserializer())
@@ -68,7 +67,7 @@ class RetrofitConfigurator(private val accountsApiCredentials: AccountsApiCreden
         gsonBuilder.registerTypeAdapter(TransferNotification::class.java, TransferNotificationDeserializer())
         gsonBuilder.registerTypeAdapter(Date::class.java, DateSerializer())
         gsonBuilder.registerTypeAdapter(MetadataAwareResponse::class.java, MetadataAwareResponseDeserializer(String::class.java))
-        gsonBuilder.registerTypeAdapter(paymentCardDesignType, MetadataAwareResponseDeserializer(PaymentCardDesign::class.java))
+        gsonBuilder.registerTypeAdapter(MetadataAwareResponse::class.java, MetadataAwareResponseDeserializer(PaymentCardDesign::class.java))
 
         return GsonConverterFactory.create(gsonBuilder.create())
     }

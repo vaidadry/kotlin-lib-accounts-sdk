@@ -72,7 +72,7 @@ class AccountsApiClient(
     fun getPaymentCardDesigns(paymentCardDesignFilter: PaymentCardDesignFilter) =
         with(paymentCardDesignFilter) {
             apiClient.getPaymentCardDesigns(accountOwnerId, clientType)
-        }
+        }.retryWhen(retryCondition)
 
     fun createCard(card: CreatePaymentCardRequest) =
         apiClient.createCard(card).retryWhen(retryCondition)
