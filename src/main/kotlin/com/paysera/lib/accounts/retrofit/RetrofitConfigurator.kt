@@ -10,8 +10,8 @@ import com.paysera.lib.accounts.entities.authorizations.Authorization
 import com.paysera.lib.accounts.entities.cards.Card
 import com.paysera.lib.accounts.entities.cards.CardPin
 import com.paysera.lib.accounts.entities.cards.CategorizedAccountNumbers
-import com.paysera.lib.accounts.entities.cards.PaymentCardDesign
 import com.paysera.lib.accounts.entities.common.MetadataAwareResponse
+import com.paysera.lib.accounts.entities.cards.PaymentCardDesign
 import com.paysera.lib.accounts.entities.transfers.TransferNotification
 import com.paysera.lib.accounts.serializers.*
 import io.reactivex.schedulers.Schedulers
@@ -67,7 +67,8 @@ class RetrofitConfigurator(private val accountsApiCredentials: AccountsApiCreden
         gsonBuilder.registerTypeAdapter(CardLimit::class.java, CardLimitSerializer())
         gsonBuilder.registerTypeAdapter(TransferNotification::class.java, TransferNotificationDeserializer())
         gsonBuilder.registerTypeAdapter(Date::class.java, DateSerializer())
-        gsonBuilder.registerTypeAdapter(paymentCardDesignType, MetadataAwareResponseTypeAdapter(PaymentCardDesign::class.java))
+        gsonBuilder.registerTypeAdapter(MetadataAwareResponse::class.java, MetadataAwareResponseDeserializer(String::class.java))
+        gsonBuilder.registerTypeAdapter(paymentCardDesignType, MetadataAwareResponseDeserializer(PaymentCardDesign::class.java))
 
         return GsonConverterFactory.create(gsonBuilder.create())
     }
