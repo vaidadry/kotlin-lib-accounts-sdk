@@ -4,10 +4,7 @@ import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.SetDefaultAccountDescriptionRequest
 import com.paysera.lib.accounts.entities.authorizations.AuthorizationFilter
 import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
-import com.paysera.lib.accounts.entities.cards.CardCvv2
-import com.paysera.lib.accounts.entities.cards.CardsFilter
-import com.paysera.lib.accounts.entities.cards.CategorizedAccountNumbersFilter
-import com.paysera.lib.accounts.entities.cards.CreatePaymentCardRequest
+import com.paysera.lib.accounts.entities.cards.*
 import com.paysera.lib.accounts.entities.common.BaseFilter
 import com.paysera.lib.accounts.interfaces.TokenRefresherInterface
 import com.paysera.lib.accounts.retrofit.APIClient
@@ -71,6 +68,11 @@ class AccountsApiClient(
         with(cardsFilter) {
             apiClient.getCards(accountNumbers, statuses, accountOwnerId, cardOwnerId).retryWhen(retryCondition)
         }
+
+    fun getPaymentCardDesigns(paymentCardDesignFilter: PaymentCardDesignFilter) =
+        with(paymentCardDesignFilter) {
+            apiClient.getPaymentCardDesigns(accountOwnerId, clientType)
+        }.retryWhen(retryCondition)
 
     fun createCard(card: CreatePaymentCardRequest) =
         apiClient.createCard(card).retryWhen(retryCondition)
