@@ -65,6 +65,8 @@ class AccountsApiClient(
             apiClient.getCategorizedAccountNumbers(filter.categories).retryWhen(retryCondition)
         }
 
+    fun getTransferPurposeCodes() = apiClient.getTransferPurposeCodes().retryWhen(retryCondition)
+
     fun getCards(cardsFilter: CardsFilter) =
         with(cardsFilter) {
             apiClient.getCards(accountNumbers, statuses, accountOwnerId, cardOwnerId).retryWhen(retryCondition)

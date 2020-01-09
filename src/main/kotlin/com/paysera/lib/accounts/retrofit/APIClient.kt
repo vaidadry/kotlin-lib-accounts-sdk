@@ -51,6 +51,9 @@ interface APIClient {
         @Query("categories[]") categories: List<String>
     ): Single<List<CategorizedAccountNumbers>>
 
+    @GET("transfer/rest/v1/purpose-codes")
+    fun getTransferPurposeCodes(): Single<MetadataAwareResponse<String>>
+
     @GET("issued-payment-card/v1/cards")
     fun getCards(
         @Query("account_numbers[]") accountNumbers: List<String>,
