@@ -66,8 +66,13 @@ class RetrofitConfigurator(private val accountsApiCredentials: AccountsApiCreden
         gsonBuilder.registerTypeAdapter(CardLimit::class.java, CardLimitSerializer())
         gsonBuilder.registerTypeAdapter(TransferNotification::class.java, TransferNotificationDeserializer())
         gsonBuilder.registerTypeAdapter(Date::class.java, DateSerializer())
-        gsonBuilder.registerTypeAdapter(MetadataAwareResponse::class.java, MetadataAwareResponseDeserializer(String::class.java))
-        gsonBuilder.registerTypeAdapter(MetadataAwareResponse::class.java, MetadataAwareResponseDeserializer(PaymentCardDesign::class.java))
+
+        object : TypeToken<MetadataAwareResponse<String>>() { }.type.apply {
+            gsonBuilder.registerTypeAdapter(this, MetadataAwareResponseDeserializer(String::class.java))
+        }
+        object : TypeToken<MetadataAwareResponse<PaymentCardDesign>>() { }.type.apply {
+            gsonBuilder.registerTypeAdapter(this, MetadataAwareResponseDeserializer(PaymentCardDesign::class.java))
+        }
 
         return GsonConverterFactory.create(gsonBuilder.create())
     }
