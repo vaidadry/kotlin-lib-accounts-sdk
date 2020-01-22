@@ -6,53 +6,69 @@ import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationReque
 import com.paysera.lib.accounts.entities.cards.*
 import com.paysera.lib.accounts.entities.common.MetadataAwareResponse
 import com.paysera.lib.accounts.entities.transfers.Transfer
-import io.reactivex.Completable
-import io.reactivex.Single
+import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.*
 
-interface APIClient {
+interface NetworkApiClient {
+
+    // Account
+
     @POST("account/rest/v1/users/{userId}/accounts")
-    fun createAccount(@Path("userId") userId: String): Single<Account>
+    fun createAccount(
+        @Path("userId") userId: Int
+    ): Deferred<Account>
 
     @PUT("account/rest/v1/accounts/{accountNumber}/activate")
-    fun activateAccount(@Path("accountNumber") accountNumber: String): Single<Account>
+    fun activateAccount(
+        @Path("accountNumber") accountNumber: String
+    ): Deferred<Account>
 
     @PUT("account/rest/v1/accounts/{accountNumber}/deactivate")
-    fun deactivateAccount(@Path("accountNumber") accountNumber: String): Single<Account>
+    fun deactivateAccount(
+        @Path("accountNumber") accountNumber: String
+    ): Deferred<Account>
 
     @PUT("account/rest/v1/accounts/{accountNumber}/descriptions")
     fun setDefaultAccountDescription(
         @Path("accountNumber") accountNumber: String,
         @Body request: SetDefaultAccountDescriptionRequest
-    ): Single<Response<Unit>>
-
-    @GET("questionnaire/rest/v1/user/{userId}/questionnaire")
-    fun getLastUserQuestionnaire(
-        @Path("userId") userId: Int
-    ): Single<Questionnaire>
-
-    @GET("transfer/rest/v1/transfers/{id}")
-    fun getTransfer(
-        @Path("id") id: String
-    ): Single<Transfer>
+    ): Deferred<Response<Void>>
 
     @GET("account/rest/v1/accounts/{accountNumber}/full-balance")
     fun getFullBalances(
         @Path("accountNumber") accountNumber: String,
         @Query("show_historical_currencies") showHistoricalCurrencies: Int
-    ): Single<List<Balance>>
+    ): Deferred<List<Balance>>
+
+    // Questionnaire
+
+    @GET("questionnaire/rest/v1/user/{userId}/questionnaire")
+    fun getLastUserQuestionnaire(
+        @Path("userId") userId: Int
+    ): Deferred<Questionnaire>
+
+    // Transfer
+
+    @GET("transfer/rest/v1/transfers/{id}")
+    fun getTransfer(
+        @Path("id") id: String
+    ): Deferred<Transfer>
 
     @GET("transfer/rest/v1/bank-information/{iban}")
-    fun getIbanInformation(@Path("iban") iban: String): Single<IbanInformation>
+    fun getIbanInformation(
+        @Path("iban") iban: String
+    ): Deferred<IbanInformation>
 
     @GET("transfer/rest/v1/categorized-account-numbers")
     fun getCategorizedAccountNumbers(
         @Query("categories[]") categories: List<String>
-    ): Single<List<CategorizedAccountNumbers>>
+    ): Deferred<List<CategorizedAccountNumbers>>
 
     @GET("transfer/rest/v1/purpose-codes")
-    fun getTransferPurposeCodes(): Single<MetadataAwareResponse<String>>
+    fun getTransferPurposeCodes(): Deferred<MetadataAwareResponse<String>>
+
+    // Issued payment card
 
     @GET("issued-payment-card/v1/cards")
     fun getCards(
@@ -60,71 +76,103 @@ interface APIClient {
         @Query("statuses[]") statuses: List<String>,
         @Query("account_owner_id") accountOwnerId: String?,
         @Query("card_owner_id") cardOwnerId: String?
-    ): Single<List<Card>>
+    ): Deferred<List<Card>>
 
     @GET("issued-payment-card/v1/card-designs")
     fun getPaymentCardDesigns(
         @Query("account_owner_id") accountOwnerId: Int?,
         @Query("client_type") clientType: String?
-    ) : Single<MetadataAwareResponse<PaymentCardDesign>>
+    ): Deferred<MetadataAwareResponse<PaymentCardDesign>>
 
     @POST("issued-payment-card/v1/cards")
-    fun createCard(@Body card: CreatePaymentCardRequest): Single<Card>
+    fun createCard(
+        @Body card: CreatePaymentCardRequest
+    ): Deferred<Card>
 
     @PUT("issued-payment-card/v1/cards/{id}/activate")
-    fun activateCard(@Path("id") id: String): Single<Card>
+    fun activateCard(
+        @Path("id") id: String
+    ): Deferred<Card>
 
     @PUT("issued-payment-card/v1/cards/{id}/deactivate")
-    fun deactivateCard(@Path("id") id: String): Single<Card>
+    fun deactivateCard(
+        @Path("id") id: String
+    ): Deferred<Card>
 
     @PUT("issued-payment-card/v1/cards/{id}/enable")
-    fun enableCard(@Path("id") id: String): Single<Card>
+    fun enableCard(
+        @Path("id") id: String
+    ): Deferred<Card>
 
     @PUT("issued-payment-card/v1/cards/{id}/cancel")
-    fun cancelCard(@Path("id") id: String): Single<Card>
+    fun cancelCard(
+        @Path("id") id: String
+    ): Deferred<Card>
 
     @GET("issued-payment-card/v1/accounts/{accountNumber}/card-limit")
-    fun getCardLimit(@Path("accountNumber") accountNumber: String): Single<CardLimit>
+    fun getCardLimit(
+        @Path("accountNumber") accountNumber: String
+    ): Deferred<CardLimit>
 
     @PUT("issued-payment-card/v1/accounts/{accountNumber}/card-limit")
-    fun setCardLimit(@Path("accountNumber") accountNumber: String, @Body cardLimit: CardLimit): Single<CardLimit>
+    fun setCardLimit(
+        @Path("accountNumber") accountNumber: String,
+        @Body cardLimit: CardLimit
+    ): Deferred<CardLimit>
 
     @GET("issued-payment-card/v1/accounts/{accountNumber}/shipping-address")
-    fun getCardShippingAddress(@Path("accountNumber") accountNumber: String): Single<CardShippingAddress>
+    fun getCardShippingAddress(
+        @Path("accountNumber") accountNumber: String
+    ): Deferred<CardShippingAddress>
 
     @GET("issued-payment-card/v1/accounts/{accountNumber}/card-order-restriction")
-    fun getCardOrderRestriction(@Path("accountNumber") accountNumber: String): Single<CardOrderRestriction>
+    fun getCardOrderRestriction(
+        @Path("accountNumber") accountNumber: String
+    ): Deferred<CardOrderRestriction>
 
     @PUT("issued-payment-card/v1/cards/{id}/pin")
-    fun getCardPin(@Path("id") cardId: String, @Body cardCvv2: CardCvv2): Single<CardPin>
+    fun getCardPin(
+        @Path("id") cardId: String,
+        @Body cardCvv2: CardCvv2
+    ): Deferred<CardPin>
 
     @GET("issued-payment-card/v1/card-delivery-prices/{country}")
-    fun getCardDeliveryPrices(@Path("country") country: String): Single<List<CardDeliveryPrice>>
+    fun getCardDeliveryPrices(
+        @Path("country") country: String
+    ): Deferred<List<CardDeliveryPrice>>
 
     @GET("issued-payment-card/v1/card-issue-price/{country}/{clientType}/{cardOwnerId}")
     fun getCardIssuePrice(
         @Path("country") country: String,
         @Path("clientType") clientType: String,
-        @Path("cardOwnerId") cardOwnerId: String
-    ): Single<CardIssuePrice>
+        @Path("cardOwnerId") cardOwnerId: Int
+    ): Deferred<CardIssuePrice>
 
     @GET("issued-payment-card/v1/card-delivery-date")
     fun getCardDeliveryDate(
         @Query("country") country: String,
         @Query("delivery_type") deliveryType: String
-    ): Single<CardDeliveryDate>
+    ): Deferred<CardDeliveryDate>
 
     @GET("issued-payment-card/v1/card-delivery-countries")
     fun getCardDeliveryCountries(
         @Query("offset") offset: Int?,
         @Query("limit") limit: Int?
-    ): Single<MetadataAwareResponse<String>>
+    ): Deferred<MetadataAwareResponse<String>>
+
+    // Client allowance
 
     @GET("client-allowance/rest/v1/client-allowances/can-order-card")
-    fun canOrderCard(@Query("user_id") userId: String): Single<ClientAllowance>
+    fun canOrderCard(
+        @Query("user_id") userId: Int
+    ): Deferred<ClientAllowance>
 
     @GET("client-allowance/rest/v1/client-allowances/can-fill-questionnaire")
-    fun canFillQuestionnare(@Query("user_id") userId: String): Single<ClientAllowance>
+    fun canFillQuestionnaire(
+        @Query("user_id") userId: Int
+    ): Deferred<ClientAllowance>
+
+    // Permission
 
     @GET("permission/rest/v1/authorizations")
     fun getAuthorizations(
@@ -136,23 +184,27 @@ interface APIClient {
         @Query("order_by") orderBy: String?,
         @Query("order_direction") orderDirection: String?,
         @Query("replaced_authorization_ids") replacedAuthorizationIds: List<String>?
-    ): Single<List<Authorization>>
+    ): Deferred<List<Authorization>>
 
     @POST("permission/rest/v1/authorizations")
-    fun createAuthorization(@Body authorization: CreateAuthorizationRequest): Single<List<Authorization>>
+    fun createAuthorization(
+        @Body authorization: CreateAuthorizationRequest
+    ): Deferred<Authorization>
 
     @DELETE("permission/rest/v1/authorizations/{authorizationId}")
-    fun deleteAuthorization(@Path("authorizationId") authorizationId: String): Completable
+    fun deleteAuthorization(
+        @Path("authorizationId") authorizationId: String
+    ): Deferred<Response<Void>>
 
     @PUT("permission/rest/v1/authorizations/{authorizationId}")
     fun updateAuthorization(
         @Path("authorizationId") authorizationId: String,
         @Body authorization: CreateAuthorizationRequest
-    ): Single<List<Authorization>>
+    ): Deferred<Authorization>
 
     @DELETE("permission/rest/v1/authorizations/{authorizationId}/users/{userId}")
     fun revokeUserAuthorization(
         @Path("authorizationId") authorizationId: String,
         @Path("userId") userId: Int
-    ): Completable
+    ): Deferred<Response<Void>>
 }

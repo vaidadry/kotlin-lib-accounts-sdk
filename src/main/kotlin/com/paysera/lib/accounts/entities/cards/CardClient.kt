@@ -1,6 +1,6 @@
 package com.paysera.lib.accounts.entities.cards
 
-class CardClient(
+data class CardClient(
     val id: Int,
     val userId: Int,
     val createdAt: Int,

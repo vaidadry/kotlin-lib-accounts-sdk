@@ -1,6 +1,6 @@
 package com.paysera.lib.accounts.entities.cards
 
-class CardsFilter(
+data class CardsFilter(
     var accountNumbers: List<String> = emptyList(),
     var statuses: List<String> = emptyList(),
     var cardOwnerId: String? = null,

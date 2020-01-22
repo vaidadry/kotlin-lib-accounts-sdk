@@ -1,141 +1,178 @@
 package com.paysera.lib.accounts.clients
 
+import com.paysera.lib.accounts.entities.Account
 import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.SetDefaultAccountDescriptionRequest
 import com.paysera.lib.accounts.entities.authorizations.AuthorizationFilter
 import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
 import com.paysera.lib.accounts.entities.cards.*
 import com.paysera.lib.accounts.entities.common.BaseFilter
-import com.paysera.lib.accounts.interfaces.TokenRefresherInterface
-import com.paysera.lib.accounts.retrofit.APIClient
-import io.reactivex.Flowable
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-import retrofit2.HttpException
-import java.util.concurrent.TimeUnit.SECONDS
+import com.paysera.lib.accounts.retrofit.NetworkApiClient
+import com.paysera.lib.common.retrofit.ApiRequestManager
+import com.paysera.lib.common.retrofit.BaseApiClient
+import kotlinx.coroutines.Deferred
 
 class AccountsApiClient(
-    private val apiClient: APIClient,
-    private val tokenRefresherInterface: TokenRefresherInterface
-) {
-    private val retryCondition = { errors: Flowable<Throwable> ->
-        errors.flatMap {
-            val isUnauthorized = (it as? HttpException)?.code() == 401
-            if (isUnauthorized) {
-                synchronized(tokenRefresherInterface) {
-                    if (tokenRefresherInterface.isRefreshing()) {
-                        Flowable.timer(1, SECONDS).subscribeOn(Schedulers.io())
-                    } else {
-                        tokenRefresherInterface.refreshToken().toFlowable()
-                    }
-                }
-            } else {
-                Flowable.error(it)
-            }
-        }
+    private val networkApiClient: NetworkApiClient,
+    apiRequestManager: ApiRequestManager
+) : BaseApiClient(apiRequestManager) {
+
+    fun createAccount(userId: Int): Deferred<Account> {
+        return networkApiClient.createAccount(userId)
     }
 
-    fun createAccount(userId: String) = apiClient.createAccount(userId).retryWhen(retryCondition)
-
     fun setDefaultAccountDescription(accountNumber: String, description: String) =
-        apiClient.setDefaultAccountDescription(accountNumber, SetDefaultAccountDescriptionRequest(description)).retryWhen(retryCondition)
-            .flatMap {
-                if (it.code() == 204) {
-                    Single.just(Unit)
-                } else {
-                    Single.error(HttpException(it))
-                }
-            }
+        networkApiClient.setDefaultAccountDescription(
+            accountNumber,
+            SetDefaultAccountDescriptionRequest(description)
+        )
 
-    fun activateAccount(accountNumber: String) = apiClient.activateAccount(accountNumber).retryWhen(retryCondition)
+    fun activateAccount(accountNumber: String) =
+        networkApiClient.activateAccount(
+            accountNumber
+        )
 
-    fun deactivateAccount(accountNumber: String) = apiClient.deactivateAccount(accountNumber).retryWhen(retryCondition)
+    fun deactivateAccount(accountNumber: String) =
+        networkApiClient.deactivateAccount(
+            accountNumber
+        )
 
     fun getIbanInformation(iban: String) =
-        apiClient.getIbanInformation(iban).retryWhen(retryCondition)
+        networkApiClient.getIbanInformation(
+            iban
+        )
 
     fun getFullBalance(accountNumber: String, showHistoricalCurrencies: Boolean = false) =
-        apiClient.getFullBalances(accountNumber, if (showHistoricalCurrencies) 1 else 0).retryWhen(retryCondition)
+        networkApiClient.getFullBalances(
+            accountNumber,
+            if (showHistoricalCurrencies) 1 else 0
+        )
 
     fun getCategorizedAccountNumbers(filter: CategorizedAccountNumbersFilter) =
-        with(filter) {
-            apiClient.getCategorizedAccountNumbers(filter.categories).retryWhen(retryCondition)
-        }
+        networkApiClient.getCategorizedAccountNumbers(
+            filter.categories
+        )
 
-    fun getTransferPurposeCodes() = apiClient.getTransferPurposeCodes().retryWhen(retryCondition)
+    fun getTransferPurposeCodes() =
+        networkApiClient.getTransferPurposeCodes()
 
     fun getCards(cardsFilter: CardsFilter) =
-        with(cardsFilter) {
-            apiClient.getCards(accountNumbers, statuses, accountOwnerId, cardOwnerId).retryWhen(retryCondition)
-        }
+        networkApiClient.getCards(
+            cardsFilter.accountNumbers,
+            cardsFilter.statuses,
+            cardsFilter.accountOwnerId,
+            cardsFilter.cardOwnerId
+        )
 
     fun getPaymentCardDesigns(paymentCardDesignFilter: PaymentCardDesignFilter) =
-        with(paymentCardDesignFilter) {
-            apiClient.getPaymentCardDesigns(accountOwnerId, clientType)
-        }.retryWhen(retryCondition)
+        networkApiClient.getPaymentCardDesigns(
+            paymentCardDesignFilter.accountOwnerId,
+            paymentCardDesignFilter.clientType
+        )
 
     fun createCard(card: CreatePaymentCardRequest) =
-        apiClient.createCard(card).retryWhen(retryCondition)
+        networkApiClient.createCard(
+            card
+        )
 
     fun activateCard(cardId: String) =
-        apiClient.activateCard(cardId).retryWhen(retryCondition)
+        networkApiClient.activateCard(
+            cardId
+        )
 
     fun deactivateCard(cardId: String) =
-        apiClient.deactivateCard(cardId).retryWhen(retryCondition)
+        networkApiClient.deactivateCard(
+            cardId
+        )
 
     fun enableCard(cardId: String) =
-        apiClient.enableCard(cardId).retryWhen(retryCondition)
+        networkApiClient.enableCard(
+            cardId
+        )
 
     fun cancelCard(cardId: String) =
-        apiClient.cancelCard(cardId).retryWhen(retryCondition)
+        networkApiClient.cancelCard(
+            cardId
+        )
 
     fun getCardLimit(accountNumber: String) =
-        apiClient.getCardLimit(accountNumber).retryWhen(retryCondition)
+        networkApiClient.getCardLimit(
+            accountNumber
+        )
 
     fun setCardLimit(accountNumber: String, cardLimit: CardLimit) =
-        apiClient.setCardLimit(accountNumber, cardLimit).retryWhen(retryCondition)
+        networkApiClient.setCardLimit(
+            accountNumber,
+            cardLimit
+        )
 
     fun getCardPin(cardId: String, cardCvv2: CardCvv2) =
-        apiClient.getCardPin(cardId, cardCvv2).retryWhen(retryCondition)
+        networkApiClient.getCardPin(
+            cardId,
+            cardCvv2
+        )
 
     fun getCardShippingAddress(accountNumber: String) =
-        apiClient.getCardShippingAddress(accountNumber).retryWhen(retryCondition)
+        networkApiClient.getCardShippingAddress(
+            accountNumber
+        )
 
     fun getCardOrderRestriction(accountNumber: String) =
-        apiClient.getCardOrderRestriction(accountNumber).retryWhen(retryCondition)
+        networkApiClient.getCardOrderRestriction(
+            accountNumber
+        )
 
     fun getCardDeliveryPrices(country: String) =
-        apiClient.getCardDeliveryPrices(country).retryWhen(retryCondition)
+        networkApiClient.getCardDeliveryPrices(
+            country
+        )
 
-    fun getCardIssuePrice(country: String, clientType: String, cardOwnerId: String) =
-        apiClient.getCardIssuePrice(country, clientType, cardOwnerId).retryWhen(retryCondition)
+    fun getCardIssuePrice(country: String, clientType: String, cardOwnerId: Int) =
+        networkApiClient.getCardIssuePrice(
+            country,
+            clientType,
+            cardOwnerId
+        )
 
     fun getCardDeliveryDate(country: String, deliveryType: String) =
-        apiClient.getCardDeliveryDate(country, deliveryType).retryWhen(retryCondition)
+        networkApiClient.getCardDeliveryDate(
+            country,
+            deliveryType
+        )
 
     fun getCardDeliveryCountries(filter: BaseFilter) =
-        apiClient.getCardDeliveryCountries(
+        networkApiClient.getCardDeliveryCountries(
             offset = filter.offset,
             limit = filter.limit
-        ).retryWhen(retryCondition)
+        )
 
     fun getLastUserQuestionnaire(userId: Int) =
-        apiClient.getLastUserQuestionnaire(userId).retryWhen(retryCondition)
+        networkApiClient.getLastUserQuestionnaire(
+            userId
+        )
 
     fun getTransfer(id: String) =
-        apiClient.getTransfer(id).retryWhen(retryCondition)
+        networkApiClient.getTransfer(
+            id
+        )
 
-    fun canOrderCard(id: String) =
-        apiClient.canOrderCard(id).retryWhen(retryCondition)
+    fun canOrderCard(userId: Int) =
+        networkApiClient.canOrderCard(
+            userId
+        )
 
-    fun canFillQuestionnare(id: String) =
-        apiClient.canFillQuestionnare(id).retryWhen(retryCondition)
+    fun canFillQuestionnaire(userId: Int) =
+        networkApiClient.canFillQuestionnaire(
+            userId
+        )
 
     fun createAuthorization(authorization: CreateAuthorizationRequest) =
-        apiClient.createAuthorization(authorization).retryWhen(retryCondition)
+        networkApiClient.createAuthorization(
+            authorization
+        )
 
     fun getAuthorizations(filter: AuthorizationFilter) =
-        apiClient.getAuthorizations(
+        networkApiClient.getAuthorizations(
             filter.accountNumbers,
             filter.validFrom?.time,
             filter.validTo?.time,
@@ -144,14 +181,22 @@ class AccountsApiClient(
             filter.orderBy,
             filter.orderDirectionBy,
             filter.replacedAuthorizationIds
-        ).retryWhen(retryCondition)
+        )
 
     fun updateAuthorization(authorizationId: String, authorization: CreateAuthorizationRequest) =
-        apiClient.updateAuthorization(authorizationId, authorization).retryWhen(retryCondition)
+        networkApiClient.updateAuthorization(
+            authorizationId,
+            authorization
+        )
 
     fun deleteAuthorization(authorizationId: String) =
-        apiClient.deleteAuthorization(authorizationId).retryWhen(retryCondition)
+        networkApiClient.deleteAuthorization(
+            authorizationId
+        )
 
     fun revokeUserAuthorization(authorizationId: String, userId: Int) =
-        apiClient.revokeUserAuthorization(authorizationId, userId).retryWhen(retryCondition)
+        networkApiClient.revokeUserAuthorization(
+            authorizationId,
+            userId
+        )
 }

@@ -1,6 +1,6 @@
 package com.paysera.lib.accounts.entities
 
-class IbanInformation(
+data class IbanInformation(
     val swift: String,
     val bankName: String,
     val branchCode: String?,

@@ -1,6 +1,6 @@
 package com.paysera.lib.accounts.entities.cards
 
-class CreatePaymentCardRequest (
+data class CreatePaymentCardRequest (
     var cardOwnerId: Int? = null,
     var shippingAddress: CardShippingAddress? = null,
     var deliveryType: String? = null,

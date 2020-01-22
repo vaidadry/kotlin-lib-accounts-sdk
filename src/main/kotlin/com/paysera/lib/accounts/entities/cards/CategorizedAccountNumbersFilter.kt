@@ -1,5 +1,5 @@
 package com.paysera.lib.accounts.entities.cards
 
-class CategorizedAccountNumbersFilter(
+data class CategorizedAccountNumbersFilter(
     var categories: List<String> = emptyList()
 )

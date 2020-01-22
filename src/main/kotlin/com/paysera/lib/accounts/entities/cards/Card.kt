@@ -2,7 +2,7 @@ package com.paysera.lib.accounts.entities.cards
 
 import org.joda.money.Money
 
-class Card(
+data class Card(
     val id: Int,
     val cardOwnerId: Int,
     val accountOwnerId: Int,
