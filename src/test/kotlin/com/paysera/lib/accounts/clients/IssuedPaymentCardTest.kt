@@ -3,7 +3,7 @@ package com.paysera.lib.accounts.clients
 import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.cards.CardsFilter
 import com.paysera.lib.accounts.entities.cards.PaymentCardDesignFilter
-import com.paysera.lib.accounts.entities.common.BaseFilter
+import com.paysera.lib.common.entities.BaseFilter
 import org.joda.money.CurrencyUnit
 import org.joda.money.Money
 import org.junit.jupiter.api.Test

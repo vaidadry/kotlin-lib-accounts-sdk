@@ -3,11 +3,13 @@ package com.paysera.lib.accounts.clients
 import com.paysera.lib.accounts.entities.Account
 import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.SetDefaultAccountDescriptionRequest
+import com.paysera.lib.accounts.entities.authorizations.Authorization
 import com.paysera.lib.accounts.entities.authorizations.AuthorizationFilter
 import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
 import com.paysera.lib.accounts.entities.cards.*
-import com.paysera.lib.accounts.entities.common.BaseFilter
 import com.paysera.lib.accounts.retrofit.NetworkApiClient
+import com.paysera.lib.common.entities.BaseFilter
+import com.paysera.lib.common.entities.MetadataAwareResponse
 import com.paysera.lib.common.retrofit.ApiRequestManager
 import com.paysera.lib.common.retrofit.BaseApiClient
 import kotlinx.coroutines.Deferred
@@ -171,8 +173,8 @@ class AccountsApiClient(
             authorization
         )
 
-    fun getAuthorizations(filter: AuthorizationFilter) =
-        networkApiClient.getAuthorizations(
+    fun getAuthorizations(filter: AuthorizationFilter): Deferred<MetadataAwareResponse<Authorization>> {
+        return networkApiClient.getAuthorizations(
             filter.accountNumbers,
             filter.validFrom?.time,
             filter.validTo?.time,
@@ -182,6 +184,7 @@ class AccountsApiClient(
             filter.orderDirectionBy,
             filter.replacedAuthorizationIds
         )
+    }
 
     fun updateAuthorization(authorizationId: String, authorization: CreateAuthorizationRequest) =
         networkApiClient.updateAuthorization(

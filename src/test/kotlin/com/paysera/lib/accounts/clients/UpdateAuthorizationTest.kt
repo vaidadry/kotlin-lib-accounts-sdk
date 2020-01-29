@@ -53,7 +53,7 @@ internal class UpdateAuthorizationTest : BaseTest() {
         val authorization = result.getOrNull()
         assert(authorization != null)
         assert(authorization!!.writePermission)
-        authorizationId = authorization?.id
+        authorizationId = authorization.id
     }
 
     @Test
@@ -64,7 +64,7 @@ internal class UpdateAuthorizationTest : BaseTest() {
         ).runCatchingBlocking()
         assert(result.isSuccess)
         val authorizations = apiClient.getAuthorizations(AuthorizationFilter(listOf(testAccountNumber))).runCatchingBlocking().getOrNull()
-        authorizations?.filter { it.id == authorizationId }?.firstOrNull()?.let {
+        authorizations?.items?.filter { it.id == authorizationId }?.firstOrNull()?.let {
             assert(it.users.size == 1)
         } ?: run {
             assert(false)

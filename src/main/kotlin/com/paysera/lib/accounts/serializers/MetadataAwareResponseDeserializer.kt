@@ -1,8 +1,9 @@
 package com.paysera.lib.accounts.serializers
 
-import com.google.gson.*
-import com.paysera.lib.accounts.entities.common.Metadata
-import com.paysera.lib.accounts.entities.common.MetadataAwareResponse
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import com.paysera.lib.common.entities.MetadataAwareResponse
 import java.lang.reflect.Type
 
 class MetadataAwareResponseDeserializer<T>(private val clazz: Class<T>) : JsonDeserializer<MetadataAwareResponse<T>> {
@@ -15,9 +16,9 @@ class MetadataAwareResponseDeserializer<T>(private val clazz: Class<T>) : JsonDe
             items.add(context.deserialize(it, clazz))
         }
 
-        val metadata = context.deserialize<Metadata>(
+        val metadata = context.deserialize<com.paysera.lib.common.entities.Metadata>(
             json?.asJsonObject?.getAsJsonObject("_metadata"),
-            Metadata::class.java
+            com.paysera.lib.common.entities.Metadata::class.java
         )
 
         return MetadataAwareResponse(items, metadata)

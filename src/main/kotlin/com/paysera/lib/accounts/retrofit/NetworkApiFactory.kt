@@ -11,10 +11,10 @@ import com.paysera.lib.accounts.entities.cards.Card
 import com.paysera.lib.accounts.entities.cards.CardPin
 import com.paysera.lib.accounts.entities.cards.CategorizedAccountNumbers
 import com.paysera.lib.accounts.entities.cards.PaymentCardDesign
-import com.paysera.lib.accounts.entities.common.MetadataAwareResponse
 import com.paysera.lib.accounts.entities.transfers.TransferNotification
 import com.paysera.lib.accounts.serializers.*
 import com.paysera.lib.common.entities.ApiCredentials
+import com.paysera.lib.common.entities.MetadataAwareResponse
 import com.paysera.lib.common.interfaces.TokenRefresherInterface
 import com.paysera.lib.common.retrofit.BaseApiFactory
 import okhttp3.logging.HttpLoggingInterceptor
@@ -60,6 +60,9 @@ class NetworkApiFactory(
         gsonBuilder.registerTypeAdapter(TransferNotification::class.java, TransferNotificationDeserializer())
         gsonBuilder.registerTypeAdapter(Date::class.java, DateSerializer())
 
+        object : TypeToken<MetadataAwareResponse<Authorization>>() {}.type.apply {
+            gsonBuilder.registerTypeAdapter(this, MetadataAwareResponseDeserializer(Authorization::class.java))
+        }
         object : TypeToken<MetadataAwareResponse<String>>() {}.type.apply {
             gsonBuilder.registerTypeAdapter(this, MetadataAwareResponseDeserializer(String::class.java))
         }

@@ -1,6 +1,6 @@
 package com.paysera.lib.accounts.entities.cards
 
-import com.paysera.lib.accounts.entities.common.BaseFilter
+import com.paysera.lib.common.entities.BaseFilter
 
 data class PaymentCardDesignFilter(
     val accountOwnerId: Int?,

@@ -15,4 +15,26 @@ internal class GetAuthorizationTest : BaseTest() {
         val result = apiClient.getAuthorizations(AuthorizationFilter(accountNumbers = listOf(testAccountNumber))).runCatchingBlocking()
         assert(result.isSuccess)
     }
+
+    @Test
+    fun getAuthorizationsOffset() {
+        val result = apiClient.getAuthorizations(AuthorizationFilter(accountNumbers = listOf(testAccountNumber), offset = 1)).runCatchingBlocking()
+        assert(result.isSuccess)
+        assert(result.getOrNull()?.metadata?.offset == 1)
+    }
+
+    @Test
+    fun getAuthorizationsLimit() {
+        val result = apiClient.getAuthorizations(AuthorizationFilter(accountNumbers = listOf(testAccountNumber), limit = 1)).runCatchingBlocking()
+        assert(result.isSuccess)
+        assert(result.getOrNull()?.items?.size == 1)
+    }
+
+    @Test
+    fun getAuthorizationsFilterAndOffset() {
+        val result = apiClient.getAuthorizations(AuthorizationFilter(accountNumbers = listOf(testAccountNumber), limit = 1, offset = 1)).runCatchingBlocking()
+        assert(result.isSuccess)
+        assert(result.getOrNull()?.items?.size == 1)
+        assert(result.getOrNull()?.metadata?.offset == 1)
+    }
 }
