@@ -19,5 +19,6 @@ data class Card(
     val deliveryType: String,
     val deliveryPriceAmount: Money,
     val issuePriceAmount: Money,
-    val account: CardAccount
+    val account: CardAccount,
+    val visualType: String?
 )

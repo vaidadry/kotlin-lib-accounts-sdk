@@ -4,6 +4,7 @@ import com.paysera.lib.accounts.entities.*
 import com.paysera.lib.accounts.entities.authorizations.Authorization
 import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
 import com.paysera.lib.accounts.entities.cards.*
+import com.paysera.lib.accounts.entities.transfers.ConversionTransfer
 import com.paysera.lib.accounts.entities.transfers.Transfer
 import com.paysera.lib.common.entities.MetadataAwareResponse
 import kotlinx.coroutines.Deferred
@@ -67,6 +68,22 @@ interface NetworkApiClient {
 
     @GET("transfer/rest/v1/purpose-codes")
     fun getTransferPurposeCodes(): Deferred<MetadataAwareResponse<String>>
+
+    @GET("transfer/rest/v1/conversion-transfers")
+    fun getConversionTransfers(
+        @Query("account_number_list[]")  accountNumberList: List<String>,
+        @Query("statuses[]")  statuses: List<String>
+    ) : Deferred<MetadataAwareResponse<ConversionTransfer>>
+
+    @PUT("transfer/rest/v1/conversion-transfers/{transferId}/sign")
+    fun signConversionTransfer(
+        @Path("transferId")  conversionTransferId: String
+    ) : Deferred<ConversionTransfer>
+
+    @PUT("transfer/rest/v1/conversion-transfers/{transferId}/cancel")
+    fun cancelConversionTransfer(
+        @Path("transferId")  conversionTransferId: String
+    ) : Deferred<ConversionTransfer>
 
     // Issued payment card
 

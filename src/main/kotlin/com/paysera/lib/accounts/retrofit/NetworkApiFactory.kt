@@ -11,6 +11,7 @@ import com.paysera.lib.accounts.entities.cards.Card
 import com.paysera.lib.accounts.entities.cards.CardPin
 import com.paysera.lib.accounts.entities.cards.CategorizedAccountNumbers
 import com.paysera.lib.accounts.entities.cards.PaymentCardDesign
+import com.paysera.lib.accounts.entities.transfers.ConversionTransfer
 import com.paysera.lib.accounts.entities.transfers.TransferNotification
 import com.paysera.lib.accounts.serializers.*
 import com.paysera.lib.common.entities.ApiCredentials
@@ -68,6 +69,9 @@ class NetworkApiFactory(
         }
         object : TypeToken<MetadataAwareResponse<PaymentCardDesign>>() {}.type.apply {
             gsonBuilder.registerTypeAdapter(this, MetadataAwareResponseDeserializer(PaymentCardDesign::class.java))
+        }
+        object : TypeToken<MetadataAwareResponse<ConversionTransfer>>() { }.type.apply {
+            gsonBuilder.registerTypeAdapter(this, MetadataAwareResponseDeserializer(ConversionTransfer::class.java))
         }
 
         return GsonConverterFactory.create(gsonBuilder.create())

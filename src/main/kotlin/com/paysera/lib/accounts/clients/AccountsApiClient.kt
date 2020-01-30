@@ -7,6 +7,7 @@ import com.paysera.lib.accounts.entities.authorizations.Authorization
 import com.paysera.lib.accounts.entities.authorizations.AuthorizationFilter
 import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
 import com.paysera.lib.accounts.entities.cards.*
+import com.paysera.lib.accounts.entities.transfers.ConversionTransferFilter
 import com.paysera.lib.accounts.retrofit.NetworkApiClient
 import com.paysera.lib.common.entities.BaseFilter
 import com.paysera.lib.common.entities.MetadataAwareResponse
@@ -57,6 +58,22 @@ class AccountsApiClient(
 
     fun getTransferPurposeCodes() =
         networkApiClient.getTransferPurposeCodes()
+
+    fun getConversionTransfers(filter: ConversionTransferFilter) =
+        networkApiClient.getConversionTransfers(
+            filter.accountNumberList,
+            filter.statuses
+        )
+
+    fun signConversionTransfer(transferId: String) =
+        networkApiClient.signConversionTransfer(
+            transferId
+        )
+
+    fun cancelConversionTransfer(transferId: String) =
+        networkApiClient.cancelConversionTransfer(
+            transferId
+        )
 
     fun getCards(cardsFilter: CardsFilter) =
         networkApiClient.getCards(
