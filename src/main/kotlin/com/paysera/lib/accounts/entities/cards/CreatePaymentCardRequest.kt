@@ -6,5 +6,6 @@ data class CreatePaymentCardRequest (
     var deliveryType: String? = null,
     var accountNumber: String? = null,
     var accountOwnerId: Int? = null,
-    var chargeInfo: ChargeInfo? = null
+    var chargeInfo: ChargeInfo? = null,
+    var visualType: String? = null
 )
