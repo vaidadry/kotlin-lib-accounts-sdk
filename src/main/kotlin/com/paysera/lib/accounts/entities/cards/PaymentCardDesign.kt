@@ -7,5 +7,6 @@ data class PaymentCardDesign(
     val selectorColor: String,
     val priority: Int,
     val active: Boolean,
-    val visualUrl: String
+    val visualUrl: String,
+    val visualBackUrl: String
 )
