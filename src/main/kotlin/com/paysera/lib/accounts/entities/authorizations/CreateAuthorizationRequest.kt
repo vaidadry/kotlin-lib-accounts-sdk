@@ -1,9 +1,9 @@
 package com.paysera.lib.accounts.entities.authorizations
 
 data class CreateAuthorizationRequest(
-    val accountNumber: String,
-    val userIds: List<Int>,
-    val readPermission: Boolean,
-    val writePermission: Boolean,
-    val signPermission: SignPermission?
+    var accountNumber: String,
+    var userIds: List<Int>,
+    var readPermission: Boolean,
+    var writePermission: Boolean,
+    var signPermission: SignPermission?
 )
