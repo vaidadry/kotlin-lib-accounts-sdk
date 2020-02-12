@@ -70,7 +70,7 @@ class NetworkApiFactory(
         object : TypeToken<MetadataAwareResponse<PaymentCardDesign>>() {}.type.apply {
             gsonBuilder.registerTypeAdapter(this, MetadataAwareResponseDeserializer(PaymentCardDesign::class.java))
         }
-        object : TypeToken<MetadataAwareResponse<ConversionTransfer>>() { }.type.apply {
+        object : TypeToken<MetadataAwareResponse<ConversionTransfer>>() {}.type.apply {
             gsonBuilder.registerTypeAdapter(this, MetadataAwareResponseDeserializer(ConversionTransfer::class.java))
         }
 

@@ -7,6 +7,7 @@ import java.io.IOException
 import java.util.*
 
 class DateUnixTimestampSecondsAdapter : TypeAdapter<Date>() {
+
     @Throws(IOException::class)
     override fun write(out: JsonWriter, date: Date) {
         out.value(date.time / 1000L)

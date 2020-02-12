@@ -7,7 +7,8 @@ import com.paysera.lib.accounts.entities.transfers.TransferNotification
 import java.io.IOException
 import java.util.ArrayList
 
-class TransferNotificationDeserializer: TypeAdapter<List<TransferNotification>>() {
+class TransferNotificationDeserializer : TypeAdapter<List<TransferNotification>>() {
+
     @Throws(IOException::class)
     override fun write(out: JsonWriter, value: List<TransferNotification>) {
         out.beginObject()
@@ -22,23 +23,23 @@ class TransferNotificationDeserializer: TypeAdapter<List<TransferNotification>>(
     }
 
     @Throws(IOException::class)
-    override fun read(`in`: JsonReader): List<TransferNotification> {
+    override fun read(reader: JsonReader): List<TransferNotification> {
         val transferNotifications = ArrayList<TransferNotification>()
-        `in`.beginObject()
-        while (`in`.hasNext()) {
+        reader.beginObject()
+        while (reader.hasNext()) {
             val transferNotification = TransferNotification()
-            transferNotification.type = `in`.nextName()
-            `in`.beginObject()
-            if (`in`.nextName() == "email") {
-                transferNotification.email = `in`.nextString()
+            transferNotification.type = reader.nextName()
+            reader.beginObject()
+            if (reader.nextName() == "email") {
+                transferNotification.email = reader.nextString()
             }
-            if (`in`.nextName() == "locale") {
-                transferNotification.locale = `in`.nextString()
+            if (reader.nextName() == "locale") {
+                transferNotification.locale = reader.nextString()
             }
-            `in`.endObject()
+            reader.endObject()
             transferNotifications.add(transferNotification)
         }
-        `in`.endObject()
+        reader.endObject()
         return transferNotifications
     }
 }

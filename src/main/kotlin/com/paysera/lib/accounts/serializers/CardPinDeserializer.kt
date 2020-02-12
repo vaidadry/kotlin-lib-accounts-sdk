@@ -8,7 +8,11 @@ import java.lang.reflect.Type
 
 class CardPinDeserializer : JsonDeserializer<CardPin> {
 
-    override fun deserialize(json: JsonElement, typeOfT: Type?, context: JsonDeserializationContext?): CardPin {
+    override fun deserialize(
+        json: JsonElement,
+        typeOfT: Type?,
+        context: JsonDeserializationContext?
+    ): CardPin {
         val pinCode = json.asJsonObject.get("pin_code").asString
         return CardPin(pinCode)
     }

@@ -71,19 +71,19 @@ interface NetworkApiClient {
 
     @GET("transfer/rest/v1/conversion-transfers")
     fun getConversionTransfers(
-        @Query("account_number_list[]")  accountNumberList: List<String>,
-        @Query("statuses[]")  statuses: List<String>
-    ) : Deferred<MetadataAwareResponse<ConversionTransfer>>
+        @Query("account_number_list[]") accountNumberList: List<String>,
+        @Query("statuses[]") statuses: List<String>
+    ): Deferred<MetadataAwareResponse<ConversionTransfer>>
 
     @PUT("transfer/rest/v1/conversion-transfers/{transferId}/sign")
     fun signConversionTransfer(
-        @Path("transferId")  conversionTransferId: String
-    ) : Deferred<ConversionTransfer>
+        @Path("transferId") conversionTransferId: String
+    ): Deferred<ConversionTransfer>
 
     @PUT("transfer/rest/v1/conversion-transfers/{transferId}/cancel")
     fun cancelConversionTransfer(
-        @Path("transferId")  conversionTransferId: String
-    ) : Deferred<ConversionTransfer>
+        @Path("transferId") conversionTransferId: String
+    ): Deferred<ConversionTransfer>
 
     // Issued payment card
 

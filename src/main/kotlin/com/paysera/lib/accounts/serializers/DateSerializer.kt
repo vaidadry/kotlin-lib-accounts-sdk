@@ -7,7 +7,11 @@ import java.util.*
 
 class DateSerializer : JsonDeserializer<Date>, JsonSerializer<Date> {
 
-    override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): Date {
+    override fun deserialize(
+        json: JsonElement?,
+        typeOfT: Type?,
+        context: JsonDeserializationContext?
+    ): Date {
         val time = json?.asJsonPrimitive?.asLong
         time?.let {
             return Date(it * 1000L)
@@ -15,7 +19,11 @@ class DateSerializer : JsonDeserializer<Date>, JsonSerializer<Date> {
         throw ParseException("Failed to parse date", -1)
     }
 
-    override fun serialize(src: Date?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement {
+    override fun serialize(
+        src: Date?,
+        typeOfSrc: Type?,
+        context: JsonSerializationContext?
+    ): JsonElement {
         return JsonPrimitive((src?.time?.div(1000))?.toInt())
     }
 }

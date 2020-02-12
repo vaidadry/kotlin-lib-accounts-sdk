@@ -26,7 +26,9 @@ internal class TransferTest : BaseTest() {
 
     @Test
     fun getCategorizedAccountNumbers() {
-        val response = apiClient.getCategorizedAccountNumbers(CategorizedAccountNumbersFilter()).runCatchingBlocking()
+        val response = apiClient.getCategorizedAccountNumbers(
+            CategorizedAccountNumbersFilter()
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 

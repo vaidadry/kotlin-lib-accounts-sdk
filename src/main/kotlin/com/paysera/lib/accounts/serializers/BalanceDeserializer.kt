@@ -10,7 +10,11 @@ import java.lang.reflect.Type
 
 class BalanceDeserializer : JsonDeserializer<List<Balance>> {
 
-    override fun deserialize(json: JsonElement, typeOfT: Type?, context: JsonDeserializationContext?): List<Balance> {
+    override fun deserialize(
+        json: JsonElement,
+        typeOfT: Type?,
+        context: JsonDeserializationContext?
+    ): List<Balance> {
         val balances = arrayListOf<Balance>()
         json.asJsonObject.getAsJsonArray("balance").forEach {
             val jsonObject = it.asJsonObject
@@ -26,5 +30,4 @@ class BalanceDeserializer : JsonDeserializer<List<Balance>> {
         }
         return balances
     }
-
 }

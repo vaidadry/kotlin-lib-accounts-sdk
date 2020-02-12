@@ -20,61 +20,85 @@ internal class IssuedPaymentCardTest : BaseTest() {
 
     @Test
     fun getCards() {
-        val response = apiClient.getCards(CardsFilter(listOf(testCardAccountNumber))).runCatchingBlocking()
+        val response = apiClient.getCards(
+            CardsFilter(listOf(testCardAccountNumber))
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 
     @Test
     fun getPaymentCardDesigns() {
-        val response = apiClient.getPaymentCardDesigns(PaymentCardDesignFilter(testUserId, "natural")).runCatchingBlocking()
+        val response = apiClient.getPaymentCardDesigns(
+            PaymentCardDesignFilter(testUserId, "natural")
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 
     @Test
     fun getCardLimit() {
-        val response = apiClient.getCardLimit(testCardAccountNumber).runCatchingBlocking()
+        val response = apiClient.getCardLimit(
+            testCardAccountNumber
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 
     @Test
     fun setCardLimit() {
-        val response = apiClient.setCardLimit(testCardAccountNumber, CardLimit(Money.of(CurrencyUnit.EUR, BigDecimal("500")))).runCatchingBlocking()
+        val response = apiClient.setCardLimit(
+            testCardAccountNumber,
+            CardLimit(Money.of(CurrencyUnit.EUR, BigDecimal("500")))
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 
     @Test
     fun getCardShippingAddress() {
-        val response = apiClient.getCardShippingAddress(testCardAccountNumber).runCatchingBlocking()
+        val response = apiClient.getCardShippingAddress(
+            testCardAccountNumber
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 
     @Test
     fun getCardOrderRestriction() {
-        val response = apiClient.getCardOrderRestriction(testCardAccountNumber).runCatchingBlocking()
+        val response = apiClient.getCardOrderRestriction(
+            testCardAccountNumber
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 
     @Test
     fun getCardDeliveryPrices() {
-        val response = apiClient.getCardDeliveryPrices(testCountry).runCatchingBlocking()
+        val response = apiClient.getCardDeliveryPrices(
+            testCountry
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 
     @Test
     fun getCardIssuePrice() {
-        val response = apiClient.getCardIssuePrice(testCountry, "natural", testUserId).runCatchingBlocking()
+        val response = apiClient.getCardIssuePrice(
+            testCountry,
+            "natural",
+            testUserId
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 
     @Test
     fun getCardDeliveryDate() {
-        val response = apiClient.getCardDeliveryDate(testCountry, "regular").runCatchingBlocking()
+        val response = apiClient.getCardDeliveryDate(
+            testCountry,
+            "regular"
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 
     @Test
     fun getCardDeliveryCountries() {
-        val response = apiClient.getCardDeliveryCountries(BaseFilter()).runCatchingBlocking()
+        val response = apiClient.getCardDeliveryCountries(
+            BaseFilter()
+        ).runCatchingBlocking()
         assert(response.isSuccess)
     }
 }

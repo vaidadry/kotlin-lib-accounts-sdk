@@ -8,9 +8,15 @@ import java.lang.reflect.Type
 
 class AuthorizationsDeserializer : JsonDeserializer<List<Authorization>> {
 
-    override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext): List<Authorization> {
+    override fun deserialize(
+        json: JsonElement?,
+        typeOfT: Type?,
+        context: JsonDeserializationContext
+    ): List<Authorization> {
         val authorizations = arrayListOf<Authorization>()
-        json?.asJsonObject?.getAsJsonArray("items")?.forEach { authorizations.add(context.deserialize(it, Authorization::class.java)) }
+        json?.asJsonObject?.getAsJsonArray("items")?.forEach {
+            authorizations.add(context.deserialize(it, Authorization::class.java))
+        }
         return authorizations
     }
 }
