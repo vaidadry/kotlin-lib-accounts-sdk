@@ -224,4 +224,20 @@ interface NetworkApiClient {
         @Path("authorizationId") authorizationId: String,
         @Path("userId") userId: Int
     ): Deferred<Response<Void>>
+
+    @GET("issued-payment-card/v1/accounts/{accountNumber}/card-delivery-preference")
+    fun getPaymentCardDeliveryPreference(
+            @Path("accountNumber") accountNumber: String
+    ): Deferred<PaymentCardDelivery>
+
+    @PUT("issued-payment-card/v1/accounts/{accountNumber}/card-delivery-preference")
+    fun setPaymentCardDeliveryPreference(
+            @Path("accountNumber") accountNumber: String,
+            @Body paymentCardDelivery: PaymentCardDelivery
+    ): Deferred<PaymentCardDelivery>
+
+    @GET("issued-payment-card/v1/accounts/{accountNumber}/expiring-card-reorder-restriction")
+    fun getPaymentCardExpiringOrderRestriction(
+        @Path("accountNumber") accountNumber: String
+    ): Deferred<PaymentCardExpiringOrderRestriction>
 }
