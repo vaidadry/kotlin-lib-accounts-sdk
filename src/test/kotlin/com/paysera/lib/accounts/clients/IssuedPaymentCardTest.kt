@@ -16,6 +16,7 @@ internal class IssuedPaymentCardTest : BaseTest() {
 
     private val testCardAccountNumber = "EVP...."
     private val testUserId = -1 // your user id
+    private val testAccountOwnerId = -1
     private val testCountry = "lt"
 
     @Test
@@ -78,8 +79,7 @@ internal class IssuedPaymentCardTest : BaseTest() {
     @Test
     fun getCardIssuePrice() {
         val response = apiClient.getCardIssuePrice(
-            testCountry,
-            "natural",
+            testAccountOwnerId,
             testUserId
         ).runCatchingBlocking()
         assert(response.isSuccess)

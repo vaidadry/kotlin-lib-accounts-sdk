@@ -146,10 +146,9 @@ class AccountsApiClient(
             country
         )
 
-    fun getCardIssuePrice(country: String, clientType: String, cardOwnerId: Int) =
+    fun getCardIssuePrice(cardAccountOwnerId: Int, cardOwnerId: Int) =
         networkApiClient.getCardIssuePrice(
-            country,
-            clientType,
+            cardAccountOwnerId,
             cardOwnerId
         )
 
