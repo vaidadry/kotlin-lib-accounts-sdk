@@ -42,6 +42,13 @@ interface NetworkApiClient {
         @Query("show_historical_currencies") showHistoricalCurrencies: Int
     ): Deferred<List<Balance>>
 
+    @GET("currency/rest/v1/available-currencies")
+    fun getAvailableCurrencies(
+        @Query("account_owner_user_id") userId: Int,
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
+    ): Deferred<MetadataAwareResponse<AvailableCurrency>>
+
     // Questionnaire
 
     @GET("questionnaire/rest/v1/user/{userId}/questionnaire")

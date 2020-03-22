@@ -2,6 +2,7 @@ package com.paysera.lib.accounts.clients
 
 import com.paysera.lib.accounts.entities.Account
 import com.paysera.lib.accounts.entities.CardLimit
+import com.paysera.lib.accounts.entities.AvailableCurrencyFilter
 import com.paysera.lib.accounts.entities.SetDefaultAccountDescriptionRequest
 import com.paysera.lib.accounts.entities.authorizations.Authorization
 import com.paysera.lib.accounts.entities.authorizations.AuthorizationFilter
@@ -49,6 +50,13 @@ class AccountsApiClient(
         networkApiClient.getFullBalances(
             accountNumber,
             if (showHistoricalCurrencies) 1 else 0
+        )
+
+    fun getAvailableCurrencies(availableCurrencyFilter: AvailableCurrencyFilter) =
+        networkApiClient.getAvailableCurrencies(
+            availableCurrencyFilter.userId,
+            availableCurrencyFilter.offset,
+            availableCurrencyFilter.limit
         )
 
     fun getCategorizedAccountNumbers(filter: CategorizedAccountNumbersFilter) =
