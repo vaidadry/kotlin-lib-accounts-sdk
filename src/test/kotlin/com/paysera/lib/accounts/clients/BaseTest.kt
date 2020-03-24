@@ -17,7 +17,8 @@ open class BaseTest {
     companion object {
         private val userAgent = "okhttp/3.12.1"
         private val apiCredentials = ApiCredentials(
-            "your_token"
+            "your_token",
+            120000
         )
         private val timeout: Long? = null
         private val loggingLevel = HttpLoggingInterceptor.Level.BODY
@@ -26,10 +27,6 @@ open class BaseTest {
         private val tokenRefresher = object : TokenRefresherInterface {
             override fun refreshToken(): Deferred<Any> {
                 return CompletableDeferred(1)
-            }
-
-            override fun isRefreshing(): Boolean {
-                return false
             }
         }
     }
