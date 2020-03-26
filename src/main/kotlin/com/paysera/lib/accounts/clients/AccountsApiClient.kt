@@ -160,6 +160,13 @@ class AccountsApiClient(
             cardOwnerId
         )
 
+    fun getCardIssuePrice(country: String, clientType: String, cardOwnerId: Int) =
+        networkApiClient.getCardIssuePrice(
+            country,
+            clientType,
+            cardOwnerId
+        )
+
     fun getCardDeliveryDate(country: String, deliveryType: String) =
         networkApiClient.getCardDeliveryDate(
             country,

@@ -171,6 +171,13 @@ interface NetworkApiClient {
         @Query("card_owner_id") cardOwnerId: Int
     ): Deferred<CardIssuePrice>
 
+    @GET("issued-payment-card/v1/card-issue-price/{country}/{clientType}/{cardOwnerId}")
+    fun getCardIssuePrice(
+        @Path("country") country: String,
+        @Path("clientType") clientType: String,
+        @Path("cardOwnerId") cardOwnerId: Int
+    ): Deferred<CardIssuePrice>
+
     @GET("issued-payment-card/v1/card-delivery-date")
     fun getCardDeliveryDate(
         @Query("country") country: String,
