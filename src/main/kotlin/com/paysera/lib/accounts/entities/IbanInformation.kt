@@ -7,5 +7,6 @@ data class IbanInformation(
     val bankCode: String,
     val sepaParticipant: Boolean = false,
     val sepaInstantParticipant: Boolean = false,
-    val country: String
+    val country: String,
+    val target2Participant: Boolean = false
 )
