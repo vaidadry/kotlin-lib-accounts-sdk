@@ -249,4 +249,6 @@ class AccountsApiClient(
         networkApiClient.getPaymentCardExpiringOrderRestriction(
             accountNumber
         )
+
+    fun getUserSigningLimits(userId: Int) = networkApiClient.getUserSigningLimits(userId)
 }
