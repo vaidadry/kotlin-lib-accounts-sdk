@@ -8,6 +8,8 @@ class TransferBeneficiary {
     var payzaAccount: TransferBeneficiaryPayzaAccount? = null
     var taxAccount: TransferBeneficiaryTaxAccount? = null
     var payseraAccount: TransferBeneficiaryPayseraAccount? = null
+    var transferBeneficiaryAddress: TransferBeneficiaryBankAccountBankAddress? = null
+    var additionalInformation: TransferBeneficiaryAdditionalInformation? = null
 
     fun isBankAccount() = bankAccount != null
     fun isWebmoneyAccount() = webmoneyAccount != null
@@ -29,6 +31,13 @@ class TransferBeneficiaryBankAccount {
 
 class TransferBeneficiaryBankAccountBankAddress {
     var countryCode: String? = null
+    var addressLine: String? = null
+}
+
+class TransferBeneficiaryAdditionalInformation {
+    var type: String? = null
+    var city: String? = null
+    var country: String? = null
 }
 
 class TransferBeneficiaryPayseraAccount {
