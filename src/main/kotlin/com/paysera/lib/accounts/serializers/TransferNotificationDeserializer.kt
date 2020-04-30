@@ -30,11 +30,15 @@ class TransferNotificationDeserializer : TypeAdapter<List<TransferNotification>>
             val transferNotification = TransferNotification()
             transferNotification.type = reader.nextName()
             reader.beginObject()
-            if (reader.nextName() == "locale") {
-                transferNotification.locale = reader.nextString()
-            }
-            if (reader.nextName() == "email") {
-                transferNotification.email = reader.nextString()
+            while (reader.hasNext()) {
+                val nextName = reader.nextName()
+                if (nextName == "locale") {
+                    transferNotification.locale = reader.nextString()
+                } else if (nextName == "email") {
+                    transferNotification.email = reader.nextString()
+                } else {
+                    reader.skipValue()
+                }
             }
             reader.endObject()
             transferNotifications.add(transferNotification)
