@@ -23,7 +23,6 @@ open class BaseTest {
         private val timeout: Long? = null
         private val loggingLevel = HttpLoggingInterceptor.Level.BODY
 
-        private val baseUrl = "https://accounts.paysera.com/public/"
         private val tokenRefresher = object : TokenRefresherInterface {
             override fun refreshToken(): Deferred<Any> {
                 return CompletableDeferred(1)
@@ -40,7 +39,7 @@ open class BaseTest {
             apiCredentials,
             timeout,
             loggingLevel
-        ).createClient(baseUrl, tokenRefresher)
+        ).createClient(tokenRefresher)
     }
 
     @AfterAll

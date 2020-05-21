@@ -33,8 +33,11 @@ class NetworkApiFactory(
     timeout,
     httpLoggingInterceptorLevel
 ) {
-    override fun createClient(baseUrl: String, tokenRefresher: TokenRefresherInterface?): AccountsApiClient {
-        createRetrofit(baseUrl, tokenRefresher).apply {
+    override val baseUrl = "https://accounts.paysera.com/public/"
+    override val certifiedHosts = listOf("accounts.paysera.com")
+
+    override fun createClient(tokenRefresher: TokenRefresherInterface?): AccountsApiClient {
+        createRetrofit(tokenRefresher).apply {
             return AccountsApiClient(
                 retrofit.create(NetworkApiClient::class.java),
                 apiRequestManager
