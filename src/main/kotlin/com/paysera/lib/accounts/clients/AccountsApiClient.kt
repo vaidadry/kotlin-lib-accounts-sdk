@@ -1,11 +1,12 @@
 package com.paysera.lib.accounts.clients
 
 import com.paysera.lib.accounts.entities.Account
-import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.AvailableCurrencyFilter
+import com.paysera.lib.accounts.entities.CardLimit
 import com.paysera.lib.accounts.entities.SetDefaultAccountDescriptionRequest
 import com.paysera.lib.accounts.entities.authorizations.Authorization
 import com.paysera.lib.accounts.entities.authorizations.AuthorizationFilter
+import com.paysera.lib.accounts.entities.authorizations.AuthorizationUserValidationRequest
 import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
 import com.paysera.lib.accounts.entities.cards.*
 import com.paysera.lib.accounts.entities.transfers.ConversionTransferFilter
@@ -251,4 +252,9 @@ class AccountsApiClient(
         )
 
     fun getUserSigningLimits(userId: Int) = networkApiClient.getUserSigningLimits(userId)
+
+    fun getAuthorizationUserValidations(body: AuthorizationUserValidationRequest) =
+        networkApiClient.getAuthorizationUserValidations(
+            body
+        )
 }
