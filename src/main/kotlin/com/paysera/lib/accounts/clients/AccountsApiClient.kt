@@ -257,4 +257,10 @@ class AccountsApiClient(
         networkApiClient.getAuthorizationUserValidations(
             body
         )
+
+    fun getCardOrderUserRestrictions(cardAccountOwnerId: Int, cardOwnerId: Int) =
+        networkApiClient.getCardOrderUserRestrictions(
+            cardAccountOwnerId,
+            cardOwnerId
+        )
 }

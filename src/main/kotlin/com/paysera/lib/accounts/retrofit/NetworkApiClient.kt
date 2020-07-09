@@ -262,4 +262,10 @@ interface NetworkApiClient {
     fun getAuthorizationUserValidations(
         @Body body: AuthorizationUserValidationRequest
     ): Deferred<MetadataAwareResponse<UserValidationResult>>
+
+    @GET("issued-payment-card/v1/card-order-restrictions")
+    fun getCardOrderUserRestrictions(
+        @Query("card_account_owner_id") cardAccountOwnerId: Int,
+        @Query("card_owner_id") cardOwnerId: Int
+    ): Deferred<MetadataAwareResponse<CardOrderRestriction>>
 }

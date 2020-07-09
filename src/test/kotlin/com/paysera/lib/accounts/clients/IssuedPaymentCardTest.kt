@@ -101,4 +101,13 @@ internal class IssuedPaymentCardTest : BaseTest() {
         ).runCatchingBlocking()
         assert(response.isSuccess)
     }
+
+    @Test
+    fun getCardOrderUserRestrictions() {
+        val response = apiClient.getCardOrderUserRestrictions(
+            testUserId,
+            testAccountOwnerId
+        ).runCatchingBlocking()
+        assert(response.isSuccess)
+    }
 }
