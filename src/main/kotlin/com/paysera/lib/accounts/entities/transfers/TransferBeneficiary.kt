@@ -8,7 +8,7 @@ class TransferBeneficiary {
     var payzaAccount: TransferBeneficiaryPayzaAccount? = null
     var taxAccount: TransferBeneficiaryTaxAccount? = null
     var payseraAccount: TransferBeneficiaryPayseraAccount? = null
-    var address: TransferBeneficiaryAddress? = null
+    var address: TransferAddress? = null
     var additionalInformation: TransferBeneficiaryAdditionalInformation? = null
 
     fun isBankAccount() = bankAccount != null
@@ -27,9 +27,10 @@ class TransferBeneficiaryBankAccount {
     var sortCode: String? = null
     var accountNumber: String? = null
     var countryCode: String? = null
+    var bankAddress: TransferAddress? = null
 }
 
-class TransferBeneficiaryAddress {
+class TransferAddress {
     var countryCode: String? = null
     var addressLine: String? = null
 }

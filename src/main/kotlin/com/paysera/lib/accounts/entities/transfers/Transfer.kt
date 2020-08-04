@@ -35,4 +35,5 @@ class Transfer {
     @JsonAdapter(TransferNotificationDeserializer::class)
     var notifications: List<TransferNotification>? = null
     var allowedToCancel: Boolean? = null
+    var chargeType: String? = null
 }
