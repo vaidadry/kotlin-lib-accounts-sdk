@@ -43,11 +43,13 @@ open class BaseTest {
     @BeforeAll
     open fun setUp() {
         apiClient = NetworkApiFactory(
-            userAgent,
-            apiCredentials,
-            timeout,
-            loggingLevel,
-            errorLoggerInterface
+            baseUrl = "https://accounts.paysera.com/public/",
+            userAgent = userAgent,
+            credentials = apiCredentials,
+            certifiedHosts = listOf("accounts.paysera.com"),
+            timeout = timeout,
+            httpLoggingInterceptorLevel = loggingLevel,
+            errorLogger = errorLoggerInterface
         ).createClient(tokenRefresher)
     }
 

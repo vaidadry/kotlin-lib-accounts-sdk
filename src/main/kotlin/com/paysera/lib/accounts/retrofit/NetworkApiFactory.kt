@@ -24,21 +24,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 class NetworkApiFactory(
+    baseUrl: String,
     userAgent: String?,
     credentials: ApiCredentials,
+    certifiedHosts: List<String>,
     timeout: Long? = null,
     httpLoggingInterceptorLevel: HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.BASIC,
     errorLogger: ErrorLoggerInterface
 ) : BaseApiFactory<AccountsApiClient>(
+    baseUrl,
     userAgent,
     credentials,
+    certifiedHosts,
     timeout,
     httpLoggingInterceptorLevel,
     errorLogger
 ) {
-    override val baseUrl = "https://accounts.paysera.com/public/"
-    override val certifiedHosts = listOf("accounts.paysera.com")
-
     override fun createClient(tokenRefresher: TokenRefresherInterface?): AccountsApiClient {
         createRetrofit(tokenRefresher).apply {
             return AccountsApiClient(
