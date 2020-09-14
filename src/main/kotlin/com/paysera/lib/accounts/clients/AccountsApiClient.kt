@@ -9,6 +9,10 @@ import com.paysera.lib.accounts.entities.authorizations.AuthorizationFilter
 import com.paysera.lib.accounts.entities.authorizations.AuthorizationUserValidationRequest
 import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
 import com.paysera.lib.accounts.entities.cards.*
+import com.paysera.lib.accounts.entities.preciousMetals.filters.BullionFilter
+import com.paysera.lib.accounts.entities.preciousMetals.requests.BullionSpreadPercentageRequest
+import com.paysera.lib.accounts.entities.preciousMetals.requests.BuyBullionItemRequest
+import com.paysera.lib.accounts.entities.preciousMetals.requests.SellBullionItemRequest
 import com.paysera.lib.accounts.entities.transfers.ConversionTransferFilter
 import com.paysera.lib.accounts.retrofit.NetworkApiClient
 import com.paysera.lib.common.entities.BaseFilter
@@ -262,5 +266,49 @@ class AccountsApiClient(
         networkApiClient.getCardOrderUserRestrictions(
             cardAccountOwnerId,
             cardOwnerId
+        )
+
+    fun getBullionOptions(filter: BaseFilter) =
+        networkApiClient.getBullionOptions(
+            filter.limit,
+            filter.offset,
+            filter.orderBy,
+            filter.orderDirection
+        )
+
+    fun getBullionItems(filter: BullionFilter) =
+        networkApiClient.getBullionItems(
+            filter.accountNumber,
+            filter.limit,
+            filter.offset,
+            filter.orderBy,
+            filter.orderDirection
+        )
+
+    fun getUnallocatedBullionBalance(filter: BullionFilter) =
+        networkApiClient.getUnallocatedBullionBalance(
+            filter.accountNumber,
+            filter.limit,
+            filter.offset,
+            filter.orderBy,
+            filter.orderDirection
+        )
+
+    fun buyBullion(request: BuyBullionItemRequest) =
+        networkApiClient.buyBullion(
+            request
+        )
+
+    fun sellBullion(request: SellBullionItemRequest) =
+        networkApiClient.sellBullion(
+            request
+        )
+
+    fun getBullionSpreadPercentage(request: BullionSpreadPercentageRequest) =
+        networkApiClient.getBullionSpreadPercentage(
+            request.accountNumber,
+            request.fromCurrency,
+            request.toCurrency,
+            request.toAmount
         )
 }

@@ -3,6 +3,12 @@ package com.paysera.lib.accounts.retrofit
 import com.paysera.lib.accounts.entities.*
 import com.paysera.lib.accounts.entities.authorizations.*
 import com.paysera.lib.accounts.entities.cards.*
+import com.paysera.lib.accounts.entities.preciousMetals.Bullion
+import com.paysera.lib.accounts.entities.preciousMetals.BullionDealingCosts
+import com.paysera.lib.accounts.entities.preciousMetals.BullionOption
+import com.paysera.lib.accounts.entities.preciousMetals.UnallocatedBullionBalance
+import com.paysera.lib.accounts.entities.preciousMetals.requests.BuyBullionItemRequest
+import com.paysera.lib.accounts.entities.preciousMetals.requests.SellBullionItemRequest
 import com.paysera.lib.accounts.entities.transfers.ConversionTransfer
 import com.paysera.lib.accounts.entities.transfers.Transfer
 import com.paysera.lib.common.entities.MetadataAwareResponse
@@ -268,4 +274,46 @@ interface NetworkApiClient {
         @Query("card_account_owner_id") cardAccountOwnerId: Int,
         @Query("card_owner_id") cardOwnerId: Int
     ): Deferred<MetadataAwareResponse<CardOrderRestriction>>
+
+    // Precious metals
+
+    @GET("bullion/rest/v1/item-options")
+    fun getBullionOptions(
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?,
+        @Query("order_by") orderBy: String?,
+        @Query("order_direction") orderDirection: String?
+    ): Deferred<MetadataAwareResponse<BullionOption>>
+
+    @GET("bullion/rest/v1/items")
+    fun getBullionItems(
+        @Query("account_number") accountNumber: String,
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?,
+        @Query("order_by") orderBy: String?,
+        @Query("order_direction") orderDirection: String?
+    ) : Deferred<MetadataAwareResponse<Bullion>>
+
+    @GET("bullion/rest/v1/unallocated-balance")
+    fun getUnallocatedBullionBalance(
+        @Query("account_number") accountNumber: String,
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?,
+        @Query("order_by") orderBy: String?,
+        @Query("order_direction") orderDirection: String?
+    ): Deferred<MetadataAwareResponse<UnallocatedBullionBalance>>
+
+    @POST("bullion/rest/v1/items/buy")
+    fun buyBullion(@Body request: BuyBullionItemRequest) : Deferred<Response<Void>>
+
+    @POST("bullion/rest/v1/items/sell")
+    fun sellBullion(@Body request: SellBullionItemRequest) : Deferred<Response<Void>>
+
+    @GET("currency-exchange/rest/v1/currency-exchanges/spread-percentage")
+    fun getBullionSpreadPercentage(
+        @Query("account_number") accountNumber: String,
+        @Query("from_currency") fromCurrency: String,
+        @Query("to_currency") toCurrency: String,
+        @Query("to_amount") toAmount: String
+    ): Deferred<BullionDealingCosts>
 }
