@@ -11,6 +11,7 @@ import com.paysera.lib.accounts.entities.preciousMetals.requests.BuyBullionItemR
 import com.paysera.lib.accounts.entities.preciousMetals.requests.SellBullionItemRequest
 import com.paysera.lib.accounts.entities.transfers.ConversionTransfer
 import com.paysera.lib.accounts.entities.transfers.Transfer
+import com.paysera.lib.accounts.entities.transfers.TransferBankParticipationInformation
 import com.paysera.lib.common.entities.MetadataAwareResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
@@ -316,4 +317,9 @@ interface NetworkApiClient {
         @Query("to_currency") toCurrency: String,
         @Query("to_amount") toAmount: String
     ): Deferred<BullionDealingCosts>
+
+    @GET("transfer/rest/v1/bank-participation/{swift}")
+    fun getBankParticipationInformation(
+        @Path("swift") swift: String
+    ): Deferred<TransferBankParticipationInformation>
 }

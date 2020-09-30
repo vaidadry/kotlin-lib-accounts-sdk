@@ -311,4 +311,7 @@ class AccountsApiClient(
             request.toCurrency,
             request.toAmount
         )
+
+    fun getBankParticipationInformation(swift: String) =
+        networkApiClient.getBankParticipationInformation(swift)
 }

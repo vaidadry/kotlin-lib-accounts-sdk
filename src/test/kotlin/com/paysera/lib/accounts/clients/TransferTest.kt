@@ -10,6 +10,7 @@ internal class TransferTest : BaseTest() {
 
     private val testTransferId = "abc"
     private val testIban = "LT....."
+    private val swift = "RZBMRUMR..."
 
     @Test
     fun getTransfer() {
@@ -36,5 +37,12 @@ internal class TransferTest : BaseTest() {
     fun getTransferPurposeCodes() {
         val response = apiClient.getTransferPurposeCodes().runCatchingBlocking()
         assert(response.isSuccess)
+    }
+
+    @Test
+    fun getBankParticipationInformation() {
+        val response = apiClient.getBankParticipationInformation(swift).runCatchingBlocking()
+        assert(response.isSuccess)
+        assert(response.getOrNull() != null)
     }
 }
