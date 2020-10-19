@@ -11,6 +11,7 @@ internal class TransferTest : BaseTest() {
     private val testTransferId = "abc"
     private val testIban = "LT....."
     private val swift = "RZBMRUMR..."
+    private val currency = "EUR"
 
     @Test
     fun getTransfer() {
@@ -20,7 +21,7 @@ internal class TransferTest : BaseTest() {
 
     @Test
     fun getIbanInformation() {
-        val response = apiClient.getIbanInformation(testIban).runCatchingBlocking()
+        val response = apiClient.getIbanInformation(testIban, currency).runCatchingBlocking()
         assert(response.isSuccess)
         assert(response.getOrNull() != null)
     }

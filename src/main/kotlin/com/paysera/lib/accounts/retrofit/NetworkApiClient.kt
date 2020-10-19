@@ -74,6 +74,12 @@ interface NetworkApiClient {
         @Path("iban") iban: String
     ): Deferred<IbanInformation>
 
+    @GET("transfer/rest/v1/bank-information/{iban}")
+    fun getIbanInformation(
+        @Path("iban") iban: String,
+        @Query("currency") currency: String
+    ): Deferred<IbanInformation>
+
     @GET("transfer/rest/v1/categorized-account-numbers")
     fun getCategorizedAccountNumbers(
         @Query("categories[]") categories: List<String>
