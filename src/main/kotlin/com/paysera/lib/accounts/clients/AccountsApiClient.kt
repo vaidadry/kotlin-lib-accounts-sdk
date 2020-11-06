@@ -320,4 +320,6 @@ class AccountsApiClient(
 
     fun getBankParticipationInformation(swift: String) =
         networkApiClient.getBankParticipationInformation(swift)
+
+    fun getClientAllowances() = networkApiClient.getClientAllowances()
 }

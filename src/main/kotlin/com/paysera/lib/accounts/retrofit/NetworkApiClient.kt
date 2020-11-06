@@ -3,6 +3,7 @@ package com.paysera.lib.accounts.retrofit
 import com.paysera.lib.accounts.entities.*
 import com.paysera.lib.accounts.entities.authorizations.*
 import com.paysera.lib.accounts.entities.cards.*
+import com.paysera.lib.accounts.entities.clientAllowances.PSClientAllowances
 import com.paysera.lib.accounts.entities.preciousMetals.Bullion
 import com.paysera.lib.accounts.entities.preciousMetals.BullionDealingCosts
 import com.paysera.lib.accounts.entities.preciousMetals.BullionOption
@@ -328,4 +329,7 @@ interface NetworkApiClient {
     fun getBankParticipationInformation(
         @Path("swift") swift: String
     ): Deferred<TransferBankParticipationInformation>
+
+    @GET("client-allowance/rest/v1/client-allowances")
+    fun getClientAllowances(): Deferred<List<PSClientAllowances>>
 }
