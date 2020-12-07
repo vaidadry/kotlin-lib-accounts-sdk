@@ -322,4 +322,6 @@ class AccountsApiClient(
         networkApiClient.getBankParticipationInformation(swift)
 
     fun getClientAllowances() = networkApiClient.getClientAllowances()
+
+    fun unblockCardCvv(cardId: String) = networkApiClient.unblockCvv(cardId)
 }
