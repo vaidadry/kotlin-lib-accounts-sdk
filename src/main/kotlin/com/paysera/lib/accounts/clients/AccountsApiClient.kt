@@ -9,6 +9,10 @@ import com.paysera.lib.accounts.entities.authorizations.AuthorizationFilter
 import com.paysera.lib.accounts.entities.authorizations.AuthorizationUserValidationRequest
 import com.paysera.lib.accounts.entities.authorizations.CreateAuthorizationRequest
 import com.paysera.lib.accounts.entities.cards.*
+import com.paysera.lib.accounts.entities.informationRequests.PSInformationRequest
+import com.paysera.lib.accounts.entities.informationRequests.PSInformationRequestAnswers
+import com.paysera.lib.accounts.entities.informationRequests.PSInformationRequestFile
+import com.paysera.lib.accounts.entities.informationRequests.filters.PSInformationRequestFilter
 import com.paysera.lib.accounts.entities.preciousMetals.filters.BullionFilter
 import com.paysera.lib.accounts.entities.preciousMetals.requests.BullionSpreadPercentageRequest
 import com.paysera.lib.accounts.entities.preciousMetals.requests.BuyBullionItemRequest
@@ -324,4 +328,44 @@ class AccountsApiClient(
     fun getClientAllowances() = networkApiClient.getClientAllowances()
 
     fun unblockCardCvv(cardId: String) = networkApiClient.unblockCvv(cardId)
+
+    fun getInformationRequests(filter: PSInformationRequestFilter) =
+        networkApiClient.getInformationRequests(
+            filter.transferId,
+            filter.accountNumbers,
+            filter.status,
+            filter.internalCommentRequired,
+            filter.limit,
+            filter.offset,
+            filter.orderBy,
+            filter.orderDirection,
+            filter.after,
+            filter.before
+        )
+
+    fun getInformationRequest(informationRequestId: String) =
+        networkApiClient.getInformationRequest(
+            informationRequestId
+        )
+
+    fun createInformationRequest(informationRequest: PSInformationRequest) =
+        networkApiClient.createInformationRequest(
+            informationRequest
+        )
+
+    fun uploadInformationRequestFile(
+        informationRequestId: String,
+        file: PSInformationRequestFile
+    ) = networkApiClient.uploadInformationRequestFile(
+        informationRequestId,
+        file
+    )
+
+    fun answerInformationRequestQuestions(
+        informationRequestId: String,
+        answers: PSInformationRequestAnswers
+    ) = networkApiClient.answerInformationRequestQuestions(
+        informationRequestId,
+        answers
+    )
 }

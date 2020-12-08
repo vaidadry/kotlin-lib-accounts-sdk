@@ -4,6 +4,10 @@ import com.paysera.lib.accounts.entities.*
 import com.paysera.lib.accounts.entities.authorizations.*
 import com.paysera.lib.accounts.entities.cards.*
 import com.paysera.lib.accounts.entities.clientAllowances.PSClientAllowances
+import com.paysera.lib.accounts.entities.informationRequests.PSInformationRequest
+import com.paysera.lib.accounts.entities.informationRequests.PSInformationRequestAnswers
+import com.paysera.lib.accounts.entities.informationRequests.PSInformationRequestFile
+import com.paysera.lib.accounts.entities.informationRequests.PSInformationRequestUploadedFile
 import com.paysera.lib.accounts.entities.preciousMetals.Bullion
 import com.paysera.lib.accounts.entities.preciousMetals.BullionDealingCosts
 import com.paysera.lib.accounts.entities.preciousMetals.BullionOption
@@ -337,4 +341,40 @@ interface NetworkApiClient {
     fun unblockCvv(
         @Path("id") cardId: String
     ): Deferred<Card>
+
+    @GET("transfer-aml-information/rest/v1/information-requests")
+    fun getInformationRequests(
+        @Query("transfer_id") transferId: String?,
+        @Query("account_numbers[]") accountNumbers: List<String>?,
+        @Query("status") status: String?,
+        @Query("internal_comment_required") internalCommentRequired: Boolean?,
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?,
+        @Query("order_by") orderBy: String?,
+        @Query("order_direction") orderDirection: String?,
+        @Query("after") after: String?,
+        @Query("before") before: String?
+    ): Deferred<MetadataAwareResponse<PSInformationRequest>>
+
+    @GET("transfer-aml-information/rest/v1/information-requests/{id}")
+    fun getInformationRequest(
+        @Path("id") informationRequestId: String
+    ): Deferred<PSInformationRequest>
+
+    @POST("transfer-aml-information/rest/v1/information-requests")
+    fun createInformationRequest(
+        @Body informationRequest: PSInformationRequest
+    ): Deferred<PSInformationRequest>
+
+    @POST("transfer-aml-information/rest/v1/information-requests/{id}/files")
+    fun uploadInformationRequestFile(
+        @Path("id") informationRequestId: String,
+        @Body file: PSInformationRequestFile
+    ): Deferred<PSInformationRequestUploadedFile>
+
+    @PUT("transfer-aml-information/rest/v1/information-requests/{id}/answer")
+    fun answerInformationRequestQuestions(
+        @Path("id") informationRequestId: String,
+        @Body answers: PSInformationRequestAnswers
+    ): Deferred<PSInformationRequest>
 }
