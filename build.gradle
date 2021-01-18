@@ -20,6 +20,7 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
+    maven { url 'https://dl.bintray.com/babylonpartners/maven' }
 }
 
 dependencies {
@@ -34,7 +35,7 @@ dependencies {
 
     implementation 'org.joda:joda-money:0.12'
 
-    implementation 'com.github.paysera:kotlin-lib-common-sdk:2.2.1'
+    implementation 'com.github.paysera:kotlin-lib-common-sdk:2.3.0'
 
     testImplementation(
             'org.assertj:assertj-core:3.12.2',
