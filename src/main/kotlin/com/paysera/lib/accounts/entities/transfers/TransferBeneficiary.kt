@@ -8,6 +8,7 @@ class TransferBeneficiary {
     var payzaAccount: TransferBeneficiaryPayzaAccount? = null
     var taxAccount: TransferBeneficiaryTaxAccount? = null
     var payseraAccount: TransferBeneficiaryPayseraAccount? = null
+    var personAccount: TransferBeneficiaryPersonAccount? = null
     var address: TransferAddress? = null
     var additionalInformation: TransferBeneficiaryAdditionalInformation? = null
 
@@ -16,6 +17,7 @@ class TransferBeneficiary {
     fun isPayzaAccount() = payzaAccount != null
     fun isTaxAccount() = taxAccount != null
     fun isPayseraAccount() = payseraAccount != null
+    fun isPersonAccount() = personAccount != null
 }
 
 
@@ -63,4 +65,8 @@ class TransferBeneficiaryTaxAccount {
 
 class TransferBeneficiaryWebmoneyAccount {
     var purse: String? = null
+}
+
+class TransferBeneficiaryPersonAccount {
+    var email: String? = null
 }
