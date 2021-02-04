@@ -25,6 +25,7 @@ import java.util.*
 
 class NetworkApiFactory(
     baseUrl: String,
+    locale: String?,
     userAgent: String?,
     credentials: ApiCredentials,
     certifiedHosts: List<String>,
@@ -33,6 +34,7 @@ class NetworkApiFactory(
     errorLogger: ErrorLoggerInterface
 ) : BaseApiFactory<AccountsApiClient>(
     baseUrl,
+    locale,
     userAgent,
     credentials,
     certifiedHosts,
