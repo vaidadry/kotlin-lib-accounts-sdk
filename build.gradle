@@ -35,7 +35,7 @@ dependencies {
 
     implementation 'org.joda:joda-money:0.12'
 
-    implementation 'com.github.paysera:kotlin-lib-common-sdk:2.4.0'
+    implementation 'com.github.paysera:kotlin-lib-common-sdk:2.3.0'
 
     testImplementation(
             'org.assertj:assertj-core:3.12.2',
