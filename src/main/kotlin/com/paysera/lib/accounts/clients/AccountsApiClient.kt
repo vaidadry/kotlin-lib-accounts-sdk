@@ -1,9 +1,6 @@
 package com.paysera.lib.accounts.clients
 
-import com.paysera.lib.accounts.entities.Account
-import com.paysera.lib.accounts.entities.AvailableCurrencyFilter
-import com.paysera.lib.accounts.entities.CardLimit
-import com.paysera.lib.accounts.entities.SetDefaultAccountDescriptionRequest
+import com.paysera.lib.accounts.entities.*
 import com.paysera.lib.accounts.entities.authorizations.Authorization
 import com.paysera.lib.accounts.entities.authorizations.AuthorizationFilter
 import com.paysera.lib.accounts.entities.authorizations.AuthorizationUserValidationRequest
@@ -368,4 +365,10 @@ class AccountsApiClient(
         informationRequestId,
         answers
     )
+
+    fun provisionCardForXPay(id: String, request: XpayTokenRequest)  =
+        networkApiClient.provisionCardForXPay(
+            id,
+            request
+        )
 }
