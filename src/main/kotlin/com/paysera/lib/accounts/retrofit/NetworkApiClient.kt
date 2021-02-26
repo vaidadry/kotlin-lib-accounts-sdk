@@ -207,7 +207,7 @@ interface NetworkApiClient {
         @Query("limit") limit: Int?
     ): Deferred<MetadataAwareResponse<String>>
 
-    @PUT("public/issued-payment-card/v1/cards/{id}/xpay/add")
+    @PUT("issued-payment-card/v1/cards/{id}/xpay/add")
     fun provisionCardForXPay(
         @Path("id") id: String,
         @Body request: XpayTokenRequest
